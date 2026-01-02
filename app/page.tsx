@@ -1,65 +1,110 @@
+"use client";
+
+import { useState } from "react";
+import { motion } from "framer-motion";
+import Link from "next/link";
 import Image from "next/image";
+import { VideoBackground } from "@/components/VideoBackground";
+import { PageHeader } from "@/components/PageHeader";
 
 export default function Home() {
+  const [email, setEmail] = useState("");
+  const [submitted, setSubmitted] = useState(false);
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    // TODO: Integrate with your newsletter service
+    setSubmitted(true);
+    setEmail("");
+    setTimeout(() => setSubmitted(false), 3000);
+  };
+
   return (
-    <div className="flex min-h-screen items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex min-h-screen w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.tsx file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
+    <>
+      <VideoBackground />
+      <PageHeader />
+      {/* Blurred background heading */}
+      <div className="fixed top-32 left-1/2 transform -translate-x-1/2 w-full z-0 pointer-events-none">
+        <h1 className="text-4xl md:text-7xl lg:text-9xl font-light tracking-tight text-[var(--color-text-primary)] text-center blur-md md:blur opacity-30 md:opacity-40 px-4 md:px-6">
+          Learning is a form of humility.
+        </h1>
+      </div>
+      
+      <div className="relative z-10 min-h-screen flex flex-col items-center px-6 pt-56 pb-10">
+
+        {/* Main Image */}
+        <motion.div
+          initial={{ scale: 0, opacity: 0 }}
+          animate={{ scale: 1, opacity: 1 }}
+          transition={{ delay: 0.5, duration: 1 }}
+          className="mb-8"
+        >
+          <Image
+            src="/pexels-padrinan-1272838-removebg-preview.png"
+            alt="Origami"
+            width={400}
+            height={400}
+            className="w-auto h-64 md:h-80 object-contain"
+            priority
+          />
+        </motion.div>
+
+        {/* Subtitle and CTA */}
+        <motion.div
+          initial={{ y: 20, opacity: 0 }}
+          animate={{ y: 0, opacity: 1 }}
+          transition={{ delay: 1, duration: 0.8 }}
+          className="text-center space-y-6"
+        >
+          <div className="text-lg md:text-xl max-w-4xl grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6" style={{ fontFamily: '"Times New Roman"', fontWeight: 300, fontStyle: 'italic', color: 'rgb(230, 213, 172)' }}>
+            <p>Dust if you must, but wouldn't it be better<br/>
+To paint a picture, or write a letter,<br/>
+Bake a cake, or plant a seed;<br/>
+Ponder the difference between want and need?</p>
+            <p>Dust if you must, but there's not much time,<br/>
+With rivers to swim, and mountains to climb;<br/>
+Music to hear, and books to read;<br/>
+Friends to cherish, and life to lead.</p>
+            <p>Dust if you must, but the world's out there<br/>
+With the sun in your eyes, and the wind in your hair;<br/>
+A flutter of snow, a shower of rain,<br/>
+This day will not come around again.</p>
+            <p>Dust if you must, but bear in mind,<br/>
+Old age will come and it's not kind.<br/>
+And when you go (and go you must)<br/>
+You, yourself, will make more dust.</p>
+          </div>
+          <p className="text-sm text-[rgb(230,213,172)] mt-4" style={{ fontFamily: '"Times New Roman"', fontWeight: 300, fontStyle: 'italic' }}>
+            ~ Rose Milligan
           </p>
-        </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
-        </div>
-      </main>
-    </div>
+          
+          {/* Newsletter Subscription - Centered */}
+          <div className="flex flex-col items-center gap-6 mt-8">
+            {!submitted ? (
+              <form onSubmit={handleSubmit} className="flex flex-col sm:flex-row gap-3 justify-center items-center">
+                <input
+                  type="email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  placeholder="Email Address"
+                  required
+                  className="px-6 py-3 bg-transparent border-2 border-[var(--color-button)] text-[var(--color-text-primary)] placeholder-[#666] focus:outline-none focus:border-[var(--color-accent-1)] transition-colors rounded-full"
+                />
+                <button
+                  type="submit"
+                  className="px-8 py-3 bg-[var(--color-button)] text-[var(--color-text-primary)] font-medium hover:bg-[var(--color-accent-2)] transition-colors rounded-full whitespace-nowrap"
+                >
+                  Subscribe
+                </button>
+              </form>
+            ) : (
+              <div className="text-center">
+                <p className="text-[var(--color-accent-1)] text-lg">Thanks for subscribing!</p>
+              </div>
+            )}
+          </div>
+        </motion.div>
+      </div>
+    </>
   );
 }
