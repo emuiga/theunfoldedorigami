@@ -56,29 +56,12 @@ export default function Home() {
       
       <div className="relative z-10 min-h-screen flex flex-col items-center px-6 pt-56 pb-10">
 
-        {/* Main Image */}
-        <motion.div
-          initial={{ scale: 0, opacity: 0 }}
-          animate={{ scale: 1, opacity: 1 }}
-          transition={{ delay: 0.5, duration: 1 }}
-          className="mb-8"
-        >
-          <Image
-            src="/pexels-padrinan-1272838-removebg-preview.png"
-            alt="Origami"
-            width={400}
-            height={400}
-            className="w-auto h-64 md:h-80 object-contain"
-            priority
-          />
-        </motion.div>
-
-        {/* Subtitle and CTA */}
+        {/* Subtitle and CTA - First on mobile, second on desktop */}
         <motion.div
           initial={{ y: 20, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
           transition={{ delay: 1, duration: 0.8 }}
-          className="text-center space-y-6"
+          className="text-center space-y-6 order-1 md:order-2"
         >
           <div className="text-lg md:text-xl max-w-4xl grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6" style={{ fontFamily: 'system-ui, -apple-system, sans-serif', fontWeight: 300, fontStyle: 'italic', color: 'rgb(230, 213, 172)' }}>
             <p>Dust if you must, but wouldn't it be better<br/>
@@ -132,6 +115,23 @@ You, yourself, will make more dust.</p>
               <p className="text-red-400 text-sm text-center">{error}</p>
             )}
           </div>
+        </motion.div>
+
+        {/* Main Image - Second on mobile, first on desktop */}
+        <motion.div
+          initial={{ scale: 0, opacity: 0 }}
+          animate={{ scale: 1, opacity: 1 }}
+          transition={{ delay: 0.5, duration: 1 }}
+          className="mb-8 order-2 md:order-1 -translate-x-9 md:translate-x-0"
+        >
+          <Image
+            src="/pexels-padrinan-1272838-removebg-preview.png"
+            alt="Origami"
+            width={400}
+            height={400}
+            className="w-auto h-64 md:h-80 object-contain"
+            priority
+          />
         </motion.div>
       </div>
     </>

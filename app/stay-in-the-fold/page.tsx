@@ -48,9 +48,12 @@ export default function NewsletterPage() {
       <div className="relative z-10 min-h-screen flex items-center justify-center px-6 py-24 pt-24">
         <div className="max-w-md mx-auto w-full">
           <div className="text-center mb-12">
-            <h1 className="text-5xl font-light text-[var(--color-text-primary)] mb-4">Stay in the Fold</h1>
-            <p className="text-xl text-[var(--color-accent-1)] font-light">
-              Get the latest essays and thoughts delivered to your inbox.
+            <h1 className="text-4xl md:text-6xl lg:text-7xl font-light text-[var(--color-text-primary)] mb-6 leading-tight" style={{ fontFamily: 'system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", sans-serif' }}>
+              <span className="md:hidden">Letters from the<br />Fold</span>
+              <span className="hidden md:block">Letters from the Fold</span>
+            </h1>
+            <p className="text-base md:text-xl text-[var(--color-accent-1)] font-light" style={{ fontFamily: 'system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", sans-serif' }}>
+              Occasional notes on thinking, building, and becoming.
             </p>
           </div>
 
@@ -85,7 +88,7 @@ export default function NewsletterPage() {
                 href="/"
                 className="text-[var(--color-accent-1)] hover:text-[var(--color-accent-2)] transition-colors underline"
               >
-                ← Back to Home
+                ← Flip this way
               </Link>
             </div>
           )}
@@ -95,7 +98,7 @@ export default function NewsletterPage() {
               href="/"
               className="text-[#888] hover:text-[var(--color-accent-1)] transition-colors text-sm"
             >
-              ← Back to Home
+              ← Flip this way
             </Link>
           </div>
         </div>

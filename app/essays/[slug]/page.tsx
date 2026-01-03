@@ -48,7 +48,7 @@ export default async function EssayPage({ params }: EssayPageProps) {
       <PageHeader />
       <div className="relative z-10 min-h-screen pt-32">
         {/* Image section with title overlay */}
-        <div className="relative w-full h-[40vh] min-h-[300px]">
+        <div className="relative w-full h-[30vh] min-h-[250px] md:h-[40vh] md:min-h-[300px]">
           {essay.frontmatter.image ? (
             <Image
               src={essay.frontmatter.image}
@@ -66,7 +66,7 @@ export default async function EssayPage({ params }: EssayPageProps) {
           
           {/* Title overlay */}
           <div className="absolute inset-0 flex items-center justify-center">
-            <h1 className="text-6xl md:text-7xl lg:text-8xl font-serif font-black text-[var(--color-text-primary)] text-center px-6 max-w-5xl leading-tight">
+            <h1 className="text-3xl md:text-7xl lg:text-8xl font-serif font-black text-[var(--color-text-primary)] text-center px-6 max-w-5xl leading-tight">
               {essay.frontmatter.title}
             </h1>
           </div>

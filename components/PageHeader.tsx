@@ -5,11 +5,11 @@ import { usePathname } from "next/navigation";
 import { useState } from "react";
 
 const categories = [
-  { name: "origami", href: "/origami", label: "origami" },
-  { name: "truth", href: "/truth", label: "truth" },
-  { name: "coding", href: "/coding", label: "coding" },
-  { name: "random", href: "/random", label: "?????" },
-  { name: "thoughts", href: "/thoughts", label: "thoughts" },
+  { name: "origami", href: "/origami", label: "origami", tooltip: "all essays" },
+  { name: "faith", href: "/faith", label: "faith", tooltip: "faith & spirituality" },
+  { name: "coding", href: "/coding", label: "coding", tooltip: "code & experiments" },
+  { name: "random", href: "/random", label: "?????", tooltip: "random essay" },
+  { name: "thoughts", href: "/thoughts", label: "thoughts", tooltip: "reflections & musings" },
 ];
 
 export function PageHeader() {
@@ -18,26 +18,34 @@ export function PageHeader() {
 
   return (
     <header className="fixed top-0 left-0 right-0 bg-black/80 backdrop-blur-sm z-50">
-      <div className="max-w-full mx-auto px-6 py-8 flex items-center justify-between">
-        {/* Left: Categories - Desktop: three columns, Mobile: Hamburger */}
+      <div className="max-w-full mx-auto px-6 py-8 flex items-center justify-between relative">
+        {/* Left: Categories - Desktop only */}
         <div className="hidden md:flex gap-12 items-start">
           {/* Column 1: 2 items */}
           <div className="flex flex-col gap-3">
             <Link
               href="/origami"
-              className={`text-base font-medium text-[var(--color-accent-1)] hover:text-[var(--color-accent-2)] transition-colors lowercase ${
+              className={`text-base font-medium text-[var(--color-accent-1)] hover:text-[var(--color-accent-2)] transition-colors lowercase relative group ${
                 pathname === "/origami" || pathname?.startsWith("/origami") ? "font-bold" : ""
               }`}
+              title="all essays"
             >
               origami
+              <span className="absolute left-0 top-full mt-2 opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none whitespace-nowrap text-xs text-[var(--color-accent-1)] bg-black/90 px-2 py-1 rounded z-50">
+                all essays
+              </span>
             </Link>
             <Link
-              href="/truth"
-              className={`text-base font-medium text-[var(--color-accent-1)] hover:text-[var(--color-accent-2)] transition-colors lowercase ${
-                pathname === "/truth" || pathname?.startsWith("/truth") ? "font-bold" : ""
+              href="/faith"
+              className={`text-base font-medium text-[var(--color-accent-1)] hover:text-[var(--color-accent-2)] transition-colors lowercase relative group ${
+                pathname === "/faith" || pathname?.startsWith("/faith") ? "font-bold" : ""
               }`}
+              title="faith & spirituality"
             >
-              truth
+              faith
+              <span className="absolute left-0 top-full mt-2 opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none whitespace-nowrap text-xs text-[var(--color-accent-1)] bg-black/90 px-2 py-1 rounded z-50">
+                faith & spirituality
+              </span>
             </Link>
           </div>
           
@@ -45,19 +53,27 @@ export function PageHeader() {
           <div className="flex flex-col gap-3">
             <Link
               href="/coding"
-              className={`text-base font-medium text-[var(--color-accent-1)] hover:text-[var(--color-accent-2)] transition-colors lowercase ${
+              className={`text-base font-medium text-[var(--color-accent-1)] hover:text-[var(--color-accent-2)] transition-colors lowercase relative group ${
                 pathname === "/coding" || pathname?.startsWith("/coding") ? "font-bold" : ""
               }`}
+              title="code & experiments"
             >
               coding
+              <span className="absolute left-0 top-full mt-2 opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none whitespace-nowrap text-xs text-[var(--color-accent-1)] bg-black/90 px-2 py-1 rounded z-50">
+                code & experiments
+              </span>
             </Link>
             <Link
               href="/thoughts"
-              className={`text-base font-medium text-[var(--color-accent-1)] hover:text-[var(--color-accent-2)] transition-colors lowercase ${
+              className={`text-base font-medium text-[var(--color-accent-1)] hover:text-[var(--color-accent-2)] transition-colors lowercase relative group ${
                 pathname === "/thoughts" || pathname?.startsWith("/thoughts") ? "font-bold" : ""
               }`}
+              title="reflections & musings"
             >
               thoughts
+              <span className="absolute left-0 top-full mt-2 opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none whitespace-nowrap text-xs text-[var(--color-accent-1)] bg-black/90 px-2 py-1 rounded z-50">
+                reflections & musings
+              </span>
             </Link>
           </div>
           
@@ -65,16 +81,44 @@ export function PageHeader() {
           <div className="flex flex-col gap-3">
             <Link
               href="/random"
-              className={`text-base font-medium text-[var(--color-accent-1)] hover:text-[var(--color-accent-2)] transition-colors lowercase ${
+              className={`text-base font-medium text-[var(--color-accent-1)] hover:text-[var(--color-accent-2)] transition-colors lowercase relative group ${
                 pathname === "/random" || pathname?.startsWith("/random") ? "font-bold" : ""
               }`}
+              title="random essay"
             >
               ???????
+              <span className="absolute left-0 top-full mt-2 opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none whitespace-nowrap text-xs text-[var(--color-accent-1)] bg-black/90 px-2 py-1 rounded z-50">
+                random essay
+              </span>
             </Link>
           </div>
         </div>
 
-        {/* Mobile Hamburger Button */}
+        {/* Mobile: Site Title - Left side, one line */}
+        <Link
+          href="/"
+          className="md:hidden text-lg font-medium tracking-wide text-[var(--color-accent-1)] hover:text-[var(--color-accent-2)] uppercase transition-colors whitespace-nowrap"
+        >
+          The Unfolded Origami
+        </Link>
+
+        {/* Center: Site Title - Desktop only */}
+        <Link
+          href="/"
+          className="hidden md:block text-xl font-medium tracking-wide text-[var(--color-accent-1)] hover:text-[var(--color-accent-2)] uppercase transition-colors absolute left-1/2 transform -translate-x-1/2"
+        >
+          The Unfolded Origami
+        </Link>
+
+        {/* Right: Stay in the fold - Desktop only */}
+        <Link
+          href="/stay-in-the-fold"
+          className="hidden md:block text-base font-medium text-[var(--color-accent-1)] hover:text-[var(--color-accent-2)] transition-colors lowercase"
+        >
+          stay in the fold
+        </Link>
+
+        {/* Mobile Hamburger Button - Right side */}
         <button
           onClick={() => setIsMenuOpen(!isMenuOpen)}
           className="md:hidden flex flex-col gap-1.5 w-6 h-6 z-50 relative"
@@ -97,13 +141,10 @@ export function PageHeader() {
           />
         </button>
 
-        {/* Mobile Menu Overlay */}
+        {/* Mobile Menu - Contained dropdown */}
         {isMenuOpen && (
-          <div
-            className="md:hidden fixed inset-0 bg-black/95 z-40 pt-24 px-6"
-            onClick={() => setIsMenuOpen(false)}
-          >
-            <nav className="flex flex-col gap-6">
+          <div className="md:hidden absolute top-full left-0 right-0 bg-black/95 backdrop-blur-sm border-t border-[#333] z-50">
+            <nav className="flex flex-col gap-6 px-6 py-6">
               {categories.map((category) => {
                 const isActive =
                   pathname === category.href ||
@@ -116,6 +157,7 @@ export function PageHeader() {
                     className={`text-xl font-medium text-[var(--color-accent-1)] hover:text-[var(--color-accent-2)] transition-colors lowercase ${
                       isActive ? "font-bold" : ""
                     }`}
+                    title={category.tooltip}
                   >
                     {category.label}
                   </Link>
@@ -131,25 +173,6 @@ export function PageHeader() {
             </nav>
           </div>
         )}
-
-        {/* Center: Site Title - Always visible */}
-        <Link
-          href="/"
-          className="text-lg md:text-xl font-medium tracking-wide text-[var(--color-accent-1)] hover:text-[var(--color-accent-2)] uppercase transition-colors absolute left-1/2 transform -translate-x-1/2"
-        >
-          The Unfolded Origami
-        </Link>
-
-        {/* Right: Stay in the fold - Desktop only, far right */}
-        <Link
-          href="/stay-in-the-fold"
-          className="hidden md:block text-base font-medium text-[var(--color-accent-1)] hover:text-[var(--color-accent-2)] transition-colors lowercase"
-        >
-          stay in the fold
-        </Link>
-
-        {/* Mobile: Placeholder to maintain spacing */}
-        <div className="md:hidden w-6" />
       </div>
     </header>
   );

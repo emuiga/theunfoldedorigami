@@ -1,11 +1,11 @@
-import { createClient, Entry, EntryCollection } from "contentful";
+import { createClient } from "contentful";
 
 // Contentful types
 interface ContentfulEssay {
   title: string;
   slug: string;
   date: string;
-  category?: "origami" | "truth" | "coding" | "random" | "thoughts";
+  category?: "origami" | "faith" | "coding" | "random" | "thoughts";
   excerpt?: string;
   image?: {
     sys: {
@@ -25,9 +25,9 @@ const client = createClient({
 
 export async function getAllContentfulEssays(): Promise<any[]> {
   try {
-    const entries: EntryCollection<ContentfulEssay> = await client.getEntries({
+    const entries = await client.getEntries({
       content_type: "origami", // Using "origami" content type
-      order: "-fields.date",
+      order: "-fields.date" as any,
       include: 2, // Include linked assets
     });
 
@@ -64,7 +64,7 @@ export async function getAllContentfulEssays(): Promise<any[]> {
 
 export async function getContentfulEssayBySlug(slug: string): Promise<any | null> {
   try {
-    const entries: EntryCollection<ContentfulEssay> = await client.getEntries({
+    const entries = await client.getEntries({
       content_type: "origami", // Using "origami" content type
       "fields.slug": slug,
       limit: 1,
@@ -107,12 +107,12 @@ export async function getContentfulEssayBySlug(slug: string): Promise<any | null
 
 export async function getAllContentfulEssaySlugs(): Promise<string[]> {
   try {
-    const entries: EntryCollection<ContentfulEssay> = await client.getEntries({
+    const entries = await client.getEntries({
       content_type: "origami", // Using "origami" content type
-      select: "fields.slug",
+      select: "fields.slug" as any,
     });
 
-    return entries.items.map((item) => item.fields.slug);
+    return entries.items.map((item: any) => item.fields.slug as string);
   } catch (error) {
     console.error("Error fetching Contentful essay slugs:", error);
     return [];
