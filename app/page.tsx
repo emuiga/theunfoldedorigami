@@ -122,7 +122,7 @@ You, yourself, will make more dust.</p>
           initial={{ scale: 0, opacity: 0 }}
           animate={{ scale: 1, opacity: 1 }}
           transition={{ delay: 0.5, duration: 1 }}
-          className="mb-8 order-2 md:order-1 -translate-x-9 md:translate-x-0"
+          className="mb-8 order-2 md:order-1 -translate-x-13"
         >
           <Image
             src="/pexels-padrinan-1272838-removebg-preview.png"
