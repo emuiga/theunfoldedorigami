@@ -35,8 +35,12 @@ export async function getAllContentfulEssays(): Promise<any[]> {
       const fields = item.fields as any;
       let imageUrl: string | undefined;
       
-      if (fields.image && fields.image.fields) {
-        imageUrl = `https:${fields.image.fields.file?.url}`;
+      // Handle image as array or single object
+      if (fields.image) {
+        const image = Array.isArray(fields.image) ? fields.image[0] : fields.image;
+        if (image && image.fields && image.fields.file) {
+          imageUrl = `https:${image.fields.file.url}`;
+        }
       }
 
       return {
@@ -75,8 +79,12 @@ export async function getContentfulEssayBySlug(slug: string): Promise<any | null
     const fields = item.fields as any;
     let imageUrl: string | undefined;
     
-    if (fields.image && fields.image.fields) {
-      imageUrl = `https:${fields.image.fields.file?.url}`;
+    // Handle image as array or single object
+    if (fields.image) {
+      const image = Array.isArray(fields.image) ? fields.image[0] : fields.image;
+      if (image && image.fields && image.fields.file) {
+        imageUrl = `https:${image.fields.file.url}`;
+      }
     }
 
     return {

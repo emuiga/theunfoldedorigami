@@ -23,26 +23,26 @@ export default async function EssaysPage() {
             <Link
               key={essay.slug}
               href={`/essays/${essay.slug}`}
-              className="block group"
+              className="block"
             >
-              <div className="relative w-full h-[60vh] min-h-[500px] overflow-hidden">
+              <div className="relative w-full h-[40vh] min-h-[300px] overflow-hidden">
                 {essay.frontmatter.image ? (
                   <Image
                     src={essay.frontmatter.image}
                     alt={essay.frontmatter.title}
                     fill
-                    className="object-cover group-hover:scale-105 transition-transform duration-500"
+                    className="object-cover brightness-110"
                   />
                 ) : (
                   <div className="w-full h-full bg-gradient-to-br from-[#111] to-[#000]" />
                 )}
                 
-                {/* Dark overlay */}
-                <div className="absolute inset-0 bg-black/40 group-hover:bg-black/30 transition-colors" />
+                {/* Light overlay for text readability */}
+                <div className="absolute inset-0 bg-black/20" />
                 
                 {/* Title overlay */}
                 <div className="absolute inset-0 flex items-center justify-center">
-                  <h2 className="text-4xl md:text-5xl lg:text-6xl font-serif text-[var(--color-text-primary)] text-center px-6 max-w-5xl leading-tight">
+                  <h2 className="text-6xl md:text-7xl lg:text-8xl font-serif font-black text-[var(--color-text-primary)] text-center px-6 max-w-5xl leading-tight">
                     {essay.frontmatter.title}
                   </h2>
                 </div>
