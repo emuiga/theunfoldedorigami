@@ -10,6 +10,9 @@ interface EssayPageProps {
   params: Promise<{ slug: string }>;
 }
 
+// Revalidate every 60 seconds to fetch fresh Contentful data
+export const revalidate = 60;
+
 export async function generateStaticParams() {
   const slugs = await getAllEssaySlugs();
   return slugs.map((slug) => ({ slug }));

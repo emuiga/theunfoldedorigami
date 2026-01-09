@@ -10,6 +10,9 @@ export const metadata: Metadata = {
   description: "All essays from The Unfolded Origami. Ideas, slowly unfolded.",
 };
 
+// Revalidate every 60 seconds to fetch fresh Contentful data
+export const revalidate = 60;
+
 export default async function EssaysPage() {
   const essays = await getAllEssays();
 
