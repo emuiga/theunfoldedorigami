@@ -5,7 +5,7 @@ interface ContentfulEssay {
   title: string;
   slug: string;
   date: string;
-  category?: "origami" | "faith" | "coding" | "random" | "thoughts";
+  category?: "origami" | "faith" | "coding" | "random" | "thoughts" | "tech";
   excerpt?: string;
   image?: {
     sys: {

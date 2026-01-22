@@ -140,3 +140,8 @@ a:focus-visible {
   font-family: var(--font-spectral), Spectral, serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
   font-weight: 700;
 }
+
+/* Substack-style typography for poem on main page */
+.substack-poem {
+  font-family: var(--font-spectral), Spectral, serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+}

@@ -63,7 +63,7 @@ export default function Home() {
           transition={{ delay: 1, duration: 0.8 }}
           className="text-center space-y-6 order-1 md:order-2"
         >
-          <div className="text-lg md:text-xl max-w-4xl grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6" style={{ fontFamily: 'system-ui, -apple-system, sans-serif', fontWeight: 300, fontStyle: 'italic', color: 'rgb(230, 213, 172)' }}>
+          <div className="substack-poem text-lg md:text-xl max-w-4xl grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6" style={{ fontWeight: 300, fontStyle: 'italic', color: 'rgb(230, 213, 172)' }}>
             <p>Dust if you must, but wouldn't it be better<br/>
 To paint a picture, or write a letter,<br/>
 Bake a cake, or plant a seed;<br/>
@@ -81,7 +81,7 @@ Old age will come and it's not kind.<br/>
 And when you go (and go you must)<br/>
 You, yourself, will make more dust.</p>
           </div>
-          <p className="text-sm text-[rgb(230,213,172)] mt-4" style={{ fontFamily: 'system-ui, -apple-system, sans-serif', fontWeight: 300, fontStyle: 'italic' }}>
+          <p className="substack-poem text-sm text-[rgb(230,213,172)] mt-4" style={{ fontWeight: 300, fontStyle: 'italic' }}>
             ~ Rose Milligan
           </p>
           

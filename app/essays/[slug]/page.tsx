@@ -56,30 +56,34 @@ export default async function EssayPage({ params }: EssayPageProps) {
       <VideoBackground />
       <PageHeader />
       <div className="relative z-10 min-h-screen pt-32">
-        {/* Full image display */}
-        {essay.frontmatter.image && (
-          <div className="relative w-full mb-12 max-w-5xl mx-auto px-6">
-            <div className="relative w-full" style={{ aspectRatio: 'auto' }}>
-              <Image
-                src={essay.frontmatter.image}
-                alt={essay.frontmatter.title}
-                width={1200}
-                height={800}
-                className="w-full h-auto"
-                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 90vw, 1200px"
-                priority
-              />
-            </div>
+        {/* Image section with title overlay */}
+        <div className="relative w-full h-[30vh] min-h-[250px] md:h-[40vh] md:min-h-[300px]">
+          {essay.frontmatter.image ? (
+            <Image
+              src={essay.frontmatter.image}
+              alt={essay.frontmatter.title}
+              fill
+              className="object-cover brightness-110"
+              priority
+            />
+          ) : (
+            <div className="w-full h-full bg-gradient-to-br from-[#111] to-[#000]" />
+          )}
+          
+          {/* Light overlay for text readability */}
+          <div className="absolute inset-0 bg-black/20" />
+          
+          {/* Title overlay */}
+          <div className="absolute inset-0 flex items-center justify-center">
+            <h1 className="substack-title text-3xl md:text-7xl lg:text-8xl font-black text-[var(--color-text-primary)] text-center px-6 max-w-5xl leading-tight">
+              {essay.frontmatter.title}
+            </h1>
           </div>
-        )}
-        
+        </div>
+
         {/* Article content */}
         <div className="bg-black text-[var(--color-text-primary)]">
           <div className="max-w-3xl mx-auto px-6 py-12">
-            {/* Title */}
-            <h1 className="substack-title text-4xl md:text-5xl lg:text-6xl font-bold text-[var(--color-text-primary)] text-center mb-8 leading-tight">
-              {essay.frontmatter.title}
-            </h1>
             
             {/* Read on Substack button */}
             <div className="mb-8 flex justify-center">

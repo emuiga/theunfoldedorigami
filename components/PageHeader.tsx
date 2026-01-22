@@ -11,7 +11,7 @@ export function PageHeader() {
   return (
     <header className="fixed top-0 left-0 right-0 bg-black/80 backdrop-blur-sm z-50">
       <div className="max-w-full mx-auto px-6 py-8 flex items-center justify-between relative">
-        {/* Left: Random Essay - Desktop only */}
+        {/* Left: Random Essay, Words, and Tech - Desktop only */}
         <div className="hidden md:flex gap-12 items-start">
           <Link
             href="/random"
@@ -23,6 +23,30 @@ export function PageHeader() {
             ???????
             <span className="absolute left-0 top-full mt-2 opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none whitespace-nowrap text-xs text-[var(--color-accent-1)] bg-black/90 px-2 py-1 rounded z-50">
               random essay
+            </span>
+          </Link>
+          <Link
+            href="/words"
+            className={`text-base font-medium text-[var(--color-accent-1)] hover:text-[var(--color-accent-2)] transition-colors lowercase relative group ${
+              pathname === "/words" || pathname?.startsWith("/words") ? "font-bold" : ""
+            }`}
+            title="all essays"
+          >
+            words
+            <span className="absolute left-0 top-full mt-2 opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none whitespace-nowrap text-xs text-[var(--color-accent-1)] bg-black/90 px-2 py-1 rounded z-50">
+              all essays
+            </span>
+          </Link>
+          <Link
+            href="/tech"
+            className={`text-base font-medium text-[var(--color-accent-1)] hover:text-[var(--color-accent-2)] transition-colors lowercase relative group ${
+              pathname === "/tech" || pathname?.startsWith("/tech") ? "font-bold" : ""
+            }`}
+            title="tech essays"
+          >
+            tech
+            <span className="absolute left-0 top-full mt-2 opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none whitespace-nowrap text-xs text-[var(--color-accent-1)] bg-black/90 px-2 py-1 rounded z-50">
+              tech essays
             </span>
           </Link>
         </div>
@@ -87,6 +111,26 @@ export function PageHeader() {
                 title="random essay"
               >
                 ???????
+              </Link>
+              <Link
+                href="/words"
+                onClick={() => setIsMenuOpen(false)}
+                className={`text-xl font-medium text-[var(--color-accent-1)] hover:text-[var(--color-accent-2)] transition-colors lowercase ${
+                  pathname === "/words" || pathname?.startsWith("/words") ? "font-bold" : ""
+                }`}
+                title="all essays"
+              >
+                words
+              </Link>
+              <Link
+                href="/tech"
+                onClick={() => setIsMenuOpen(false)}
+                className={`text-xl font-medium text-[var(--color-accent-1)] hover:text-[var(--color-accent-2)] transition-colors lowercase ${
+                  pathname === "/tech" || pathname?.startsWith("/tech") ? "font-bold" : ""
+                }`}
+                title="tech essays"
+              >
+                tech
               </Link>
               <Link
                 href="/stay-in-the-fold"
