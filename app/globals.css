@@ -134,3 +134,9 @@ a:focus-visible {
   font-weight: 400;
   margin-bottom: 0.5em;
 }
+
+/* Substack-style typography for essay title */
+.substack-title {
+  font-family: var(--font-spectral), Spectral, serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  font-weight: 700;
+}
