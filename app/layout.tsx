@@ -1,10 +1,16 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import { Inter, Spectral } from "next/font/google";
 import "./globals.css";
 
 const inter = Inter({
   subsets: ["latin"],
   variable: "--font-inter",
+});
+
+const spectral = Spectral({
+  subsets: ["latin"],
+  weight: ["400", "600", "700"],
+  variable: "--font-spectral",
 });
 
 export const metadata: Metadata = {
@@ -31,7 +37,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${inter.variable} font-sans antialiased min-h-screen bg-black text-white`}
+        className={`${inter.variable} ${spectral.variable} font-sans antialiased min-h-screen bg-black text-white`}
       >
         <a href="#main-content" className="skip-link">
           Skip to main content

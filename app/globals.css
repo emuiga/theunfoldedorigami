@@ -105,3 +105,32 @@ a:focus-visible {
 .hover\:border-accent-1:hover {
   border-color: var(--color-accent-1);
 }
+
+/* Substack-style typography for essay content - using Spectral font */
+.substack-content {
+  font-family: var(--font-spectral), Spectral, serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  font-size: 19px;
+  line-height: 30px;
+  font-weight: 400;
+}
+
+.substack-content p {
+  font-size: 19px;
+  line-height: 30px;
+  font-weight: 400;
+  margin-bottom: 1.5em;
+}
+
+.substack-content ul,
+.substack-content ol {
+  font-size: 19px;
+  line-height: 30px;
+  font-weight: 400;
+}
+
+.substack-content li {
+  font-size: 19px;
+  line-height: 30px;
+  font-weight: 400;
+  margin-bottom: 0.5em;
+}
