@@ -52,6 +52,7 @@ export async function getAllContentfulEssays(): Promise<any[]> {
           excerpt: fields.excerpt,
           image: imageUrl,
           folds: fields.folds,
+          substackUrl: fields.substackUrl,
         },
         content: fields.content || "",
       };
@@ -96,6 +97,7 @@ export async function getContentfulEssayBySlug(slug: string): Promise<any | null
         excerpt: fields.excerpt,
         image: imageUrl,
         folds: fields.folds,
+        substackUrl: fields.substackUrl,
       },
       content: fields.content,
     };

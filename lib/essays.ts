@@ -14,6 +14,7 @@ export interface EssayFrontmatter {
   excerpt?: string;
   category?: "origami" | "faith" | "coding" | "random" | "thoughts";
   image?: string;
+  substackUrl?: string;
 }
 
 export interface Essay {
