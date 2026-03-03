@@ -32,7 +32,7 @@ export function VideoBackground() {
         <source src="/Background_Video.mp4" type="video/mp4" />
       </video>
       {/* Dark overlay for better text readability */}
-      <div className="absolute inset-0 bg-black/40" />
+      <div className="absolute inset-0 bg-[#0e1a14]/50" />
     </div>
   );
 }

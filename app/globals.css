@@ -2,14 +2,25 @@
 
 @theme inline {
   --font-sans: var(--font-inter), system-ui, -apple-system, sans-serif;
-  --font-serif: Georgia, "Times New Roman", Times, serif;
-  /* Color scheme - Change these values to update colors across the entire site */
-  --color-text-primary: #F0F0F0; /* Primary text (off-white) */
-  --color-accent-1: #67C090; /* Light teal/green */
-  --color-accent-2: #822659; /* Deep ruby */
-  --color-button: #3E5641; /* Forest green for buttons/CTAs */
-  --color-primary: var(--color-accent-1); /* Default accent (light teal/green) */
-  --color-primary-hover: var(--color-accent-2); /* Hover state (deep ruby) */
+  --font-serif: var(--font-spectral), Georgia, "Times New Roman", serif;
+  /* Color scheme */
+  --color-text-primary:   #EDE8D6;
+  --color-text-secondary: #8A9E8C;
+  --color-accent-1:       #8ABF98;
+  --color-accent-2:       #C4935A;
+  --color-button:         #2E6849;
+  --color-bg:             #0e1a14;
+  --color-surface:        #162118;
+  --color-primary: var(--color-accent-1);
+  --color-primary-hover: var(--color-accent-2);
+}
+
+/* ─── Per-page color ────────────────────────────────────────────────────
+   Each page sets --page-bg via a <style> tag in the page component.
+   Header, footer, body all read this variable so every view is unified.
+   ───────────────────────────────────────────────────────────────────── */
+:root {
+  --page-bg: #0e1a14;
 }
 
 * {
@@ -18,24 +29,33 @@
 
 html {
   scroll-behavior: smooth;
-  background: #000000;
+  background: var(--page-bg);
 }
 
 body {
   font-family: var(--font-inter), system-ui, -apple-system, sans-serif;
   line-height: 1.7;
   letter-spacing: 0.01em;
-  background: #000000;
+  background: var(--page-bg);
   color: var(--color-text-primary);
+  overflow-x: hidden;
 }
 
-/* Minimal paper texture via subtle gradient */
-.bg-paper {
-  background: linear-gradient(
-    to bottom,
-    rgba(250, 249, 246, 0.5) 0%,
-    rgba(248, 247, 244, 0.3) 100%
-  );
+/* ─── Film grain overlay ─────────────────────────────────────────────────
+   Creates the texture Haley's site has — like old film, not flat colour.
+   Uses SVG feTurbulence at a fixed viewport position.
+   ───────────────────────────────────────────────────────────────────── */
+body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='400'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23g)'/%3E%3C/svg%3E");
+  opacity: 0.045;
+  pointer-events: none;
+  z-index: 9998;
+  mix-blend-mode: soft-light;
 }
 
 /* Accessible focus styles */
@@ -45,18 +65,15 @@ body {
   border-radius: 2px;
 }
 
-/* Remove default focus for mouse users */
 *:focus:not(:focus-visible) {
   outline: none;
 }
 
-/* Ensure links are keyboard accessible */
 a:focus-visible {
   outline: 2px solid var(--color-accent-1);
   outline-offset: 2px;
 }
 
-/* Skip to main content link for screen readers */
 .skip-link {
   position: absolute;
   top: -40px;
@@ -70,78 +87,4 @@ a:focus-visible {
 
 .skip-link:focus {
   top: 0;
-}
-
-/* Gradient utilities */
-.bg-gradient-radial {
-  background: radial-gradient(circle, var(--tw-gradient-stops));
-}
-
-/* Utility classes for colors */
-.text-primary {
-  color: var(--color-text-primary);
-}
-
-.text-accent-1 {
-  color: var(--color-accent-1);
-}
-
-.text-accent-2 {
-  color: var(--color-accent-2);
-}
-
-.bg-button {
-  background-color: var(--color-button);
-}
-
-.hover\:bg-accent-2:hover {
-  background-color: var(--color-accent-2);
-}
-
-.border-accent-1 {
-  border-color: var(--color-accent-1);
-}
-
-.hover\:border-accent-1:hover {
-  border-color: var(--color-accent-1);
-}
-
-/* Substack-style typography for essay content - using Spectral font */
-.substack-content {
-  font-family: var(--font-spectral), Spectral, serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-  font-size: 19px;
-  line-height: 30px;
-  font-weight: 400;
-}
-
-.substack-content p {
-  font-size: 19px;
-  line-height: 30px;
-  font-weight: 400;
-  margin-bottom: 1.5em;
-}
-
-.substack-content ul,
-.substack-content ol {
-  font-size: 19px;
-  line-height: 30px;
-  font-weight: 400;
-}
-
-.substack-content li {
-  font-size: 19px;
-  line-height: 30px;
-  font-weight: 400;
-  margin-bottom: 0.5em;
-}
-
-/* Substack-style typography for essay title */
-.substack-title {
-  font-family: var(--font-spectral), Spectral, serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-  font-weight: 700;
-}
-
-/* Substack-style typography for poem on main page */
-.substack-poem {
-  font-family: var(--font-spectral), Spectral, serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
 }
