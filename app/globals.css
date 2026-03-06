@@ -4,9 +4,9 @@
   --font-sans: var(--font-inter), system-ui, -apple-system, sans-serif;
   --font-serif: var(--font-spectral), Georgia, "Times New Roman", serif;
   /* Color scheme */
-  --color-text-primary:   #EDE8D6;
-  --color-text-secondary: #8A9E8C;
-  --color-accent-1:       #8ABF98;
+  --color-text-primary:   rgb(227,237,237);
+  --color-text-secondary: rgba(227,237,237,0.58);
+  --color-accent-1:       #8ABF98;   /* decorative borders / dividers only — not for text */
   --color-accent-2:       #C4935A;
   --color-button:         #2E6849;
   --color-bg:             #0e1a14;

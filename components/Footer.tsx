@@ -1,76 +1,179 @@
-import Link from "next/link";
+"use client";
+
+import { useState } from "react";
 
 const socialLinks = [
-  { label: "Substack", href: "https://stevemuiga.substack.com" },
-  { label: "GitHub", href: "https://github.com/stevemuiga" },
-  { label: "X / Twitter", href: "https://x.com/stevemuiga" },
-  { label: "Instagram", href: "https://instagram.com/stevemuiga" },
-  { label: "LinkedIn", href: "https://linkedin.com/in/stevemuiga" },
+  { label: "Substack",  href: "https://stevemuiga.substack.com" },
+  { label: "GitHub",    href: "https://github.com/emuiga" },
+  { label: "LinkedIn",  href: "https://linkedin.com/in/stevemuiga" },
 ];
 
 export function Footer() {
+  const [email, setEmail] = useState("");
+  const [sent, setSent] = useState(false);
+
+  const handleSubscribe = (e: React.FormEvent) => {
+    e.preventDefault();
+    const trimmed = email.trim();
+    if (!trimmed) return;
+    window.open(
+      `https://stevemuiga.substack.com?email=${encodeURIComponent(trimmed)}`,
+      "_blank"
+    );
+    setSent(true);
+    setEmail("");
+    setTimeout(() => setSent(false), 3000);
+  };
+
   return (
-    <footer
-      className="border-t border-[var(--color-accent-1)]/10"
-      style={{ background: "var(--page-bg, #0e1a14)" }}
-    >
-      {/* Curved "Stay in the fold?" */}
-      <div className="flex justify-center pt-20 pb-4 px-6">
-        <svg
-          viewBox="0 0 600 190"
-          className="w-full max-w-2xl"
-          aria-label="Stay in the fold?"
-        >
-          <defs>
-            <path id="footer-arc" d="M 40 175 Q 300 15 560 175" />
-          </defs>
-          <text
-            fill="#EDE8D6"
-            fontSize="50"
-            fontStyle="italic"
-            fontWeight="300"
-            fontFamily="Georgia, 'Times New Roman', serif"
-          >
-            <textPath href="#footer-arc" startOffset="50%" textAnchor="middle">
-              Stay in the fold?
-            </textPath>
-          </text>
-        </svg>
+    <footer style={{ background: "var(--page-bg, #0e1a14)" }}>
+      {/* Top divider */}
+      <div className="max-w-5xl mx-auto px-6">
+        <div style={{ height: "1px", background: "rgba(138,191,152,0.10)" }} />
       </div>
 
-      <p className="text-center text-sm mb-16 italic text-[var(--color-text-secondary)]">
-        ideas, slowly unfolded.
-      </p>
+      {/* Main footer body */}
+      <div className="max-w-5xl mx-auto px-6 py-16 flex flex-col md:flex-row md:items-end justify-between gap-12">
 
-      {/* Social links */}
-      <div className="max-w-4xl mx-auto px-8 mb-10">
-        <div className="flex flex-wrap justify-center gap-x-10 gap-y-3">
-          {socialLinks.map((link) => (
-            <a
-              key={link.label}
-              href={link.href}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-sm transition-colors text-[var(--color-text-secondary)] hover:text-[var(--color-text-primary)]"
+        {/* Left — branding */}
+        <div>
+          <p
+            style={{
+              fontFamily: "var(--font-cormorant), Georgia, serif",
+              fontStyle: "italic",
+              fontWeight: 300,
+              fontSize: "clamp(2rem, 5vw, 3rem)",
+              color: "rgba(245,245,220,0.80)",
+              lineHeight: 1,
+              marginBottom: "0.6rem",
+            }}
+          >
+            The Unfolded Origami
+          </p>
+          <p
+            style={{
+              fontFamily: "var(--font-inter, sans-serif)",
+              fontSize: "0.72rem",
+              letterSpacing: "0.12em",
+              color: "rgba(245,245,220,0.28)",
+              textTransform: "uppercase",
+            }}
+          >
+            Ideas, slowly unfolded.
+          </p>
+        </div>
+
+        {/* Right — links + subscribe form */}
+        <div className="flex flex-col items-start md:items-end gap-5">
+
+          {/* Social links */}
+          <div className="flex flex-wrap gap-x-6 gap-y-2 md:justify-end">
+            {socialLinks.map((link) => (
+              <a
+                key={link.label}
+                href={link.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                style={{
+                  fontFamily: "var(--font-inter, sans-serif)",
+                  fontSize: "0.75rem",
+                  letterSpacing: "0.06em",
+                  color: "rgba(245,245,220,0.58)",
+                  textDecoration: "none",
+                  transition: "color 0.2s",
+                }}
+                onMouseEnter={(e) => (e.currentTarget.style.color = "rgba(245,245,220,0.90)")}
+                onMouseLeave={(e) => (e.currentTarget.style.color = "rgba(245,245,220,0.58)")}
+              >
+                {link.label}
+              </a>
+            ))}
+          </div>
+
+          {/* Subscribe form */}
+          <form onSubmit={handleSubscribe} style={{ width: "100%" }}>
+            <p
+              style={{
+                fontFamily: "var(--font-inter, sans-serif)",
+                fontSize: "0.62rem",
+                letterSpacing: "0.12em",
+                textTransform: "uppercase",
+                color: "rgba(245,245,220,0.45)",
+                marginBottom: "8px",
+                textAlign: "right",
+              }}
             >
-              {link.label}
-            </a>
-          ))}
+              Subscribe to the newsletter
+            </p>
+            <div className="flex items-center gap-0" style={{ border: "1px solid rgba(245,245,220,0.10)", borderRadius: "9999px", overflow: "hidden" }}>
+              <input
+                type="email"
+                required
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                placeholder="your@email.com"
+                style={{
+                  flex: 1,
+                  background: "transparent",
+                  border: "none",
+                  outline: "none",
+                  padding: "7px 16px",
+                  fontFamily: "var(--font-inter, sans-serif)",
+                  fontSize: "0.72rem",
+                  letterSpacing: "0.04em",
+                  color: "rgba(245,245,220,0.65)",
+                  minWidth: 0,
+                }}
+              />
+              <button
+                type="submit"
+                style={{
+                  background: sent ? "rgba(255,103,25,0.15)" : "rgb(255, 103, 25)",
+                  border: "none",
+                  borderLeft: "1px solid rgba(245,245,220,0.10)",
+                  padding: "7px 16px",
+                  cursor: "pointer",
+                  fontFamily: "var(--font-inter, sans-serif)",
+                  fontSize: "0.68rem",
+                  letterSpacing: "0.12em",
+                  textTransform: "uppercase",
+                  color: sent ? "rgb(255,103,25)" : "#fff",
+                  transition: "all 0.2s",
+                  whiteSpace: "nowrap",
+                }}
+              >
+                {sent ? "✓ opening" : "subscribe →"}
+              </button>
+            </div>
+          </form>
         </div>
       </div>
 
       {/* Bottom bar */}
-      <div className="border-t border-[var(--color-accent-1)]/10 px-8 py-5 flex flex-col sm:flex-row justify-between items-center gap-3 text-[var(--color-text-secondary)]">
-        <span className="text-xs">© 2026 The Unfolded Origami</span>
-        <span className="text-xs italic hidden sm:block">
-          I showed you my footer, please respond.
-        </span>
-        <Link
-          href="/stay-in-the-fold"
-          className="text-xs transition-colors hover:text-[var(--color-text-primary)]"
-        >
-          subscribe [S]
-        </Link>
+      <div className="max-w-5xl mx-auto px-6">
+        <div style={{ height: "1px", background: "rgba(138,191,152,0.07)" }} />
+        <div className="flex justify-between items-center py-5">
+          <span
+            style={{
+              fontFamily: "var(--font-inter, sans-serif)",
+              fontSize: "0.65rem",
+              letterSpacing: "0.06em",
+              color: "rgba(245,245,220,0.18)",
+            }}
+          >
+            © 2026 Steve Muiga
+          </span>
+          <span
+            style={{
+              fontFamily: "var(--font-cormorant), Georgia, serif",
+              fontStyle: "italic",
+              fontSize: "0.8rem",
+              color: "rgba(245,245,220,0.14)",
+            }}
+          >
+            Nairobi, Kenya
+          </span>
+        </div>
       </div>
     </footer>
   );
