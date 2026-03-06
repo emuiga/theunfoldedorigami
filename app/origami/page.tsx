@@ -230,6 +230,23 @@ export default async function WorkPage() {
                       {p.description}
                     </p>
 
+                    {/* Visit label — visible on mobile only */}
+                    {p.href && (
+                      <span
+                        className="md:hidden w-fit"
+                        style={{
+                          fontFamily: "var(--font-inter, sans-serif)",
+                          fontSize: "0.68rem",
+                          letterSpacing: "0.10em",
+                          textTransform: "uppercase",
+                          color: "rgba(138,191,152,0.65)",
+                          borderBottom: "1px solid rgba(138,191,152,0.25)",
+                          paddingBottom: "1px",
+                        }}
+                      >
+                        Visit ↗
+                      </span>
+                    )}
                   </div>
 
                   {/* Right: thumbnail */}
