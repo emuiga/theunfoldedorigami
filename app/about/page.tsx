@@ -1,70 +1,205 @@
 import { PageHeader } from "@/components/PageHeader";
 import type { Metadata } from "next";
 
+export const revalidate = 86400; // revalidate once per day
+
 export const metadata: Metadata = {
   title: "About",
-  description:
-    "About Steve Muiga — software engineer, runner, reader, believer.",
+  description: "About Steve Muiga — software engineer, Christian, amateur hybrid athlete.",
 };
 
-function DumbbellSVG() {
-  return (
-    <svg
-      viewBox="0 0 240 80"
-      fill="none"
-      xmlns="http://www.w3.org/2000/svg"
-      stroke="currentColor"
-      className="w-full h-full"
-    >
-      <line x1="62" y1="40" x2="178" y2="40" strokeWidth="2" />
-      <rect x="14" y="16" width="20" height="48" rx="4" strokeWidth="1.2" />
-      <rect x="34" y="24" width="22" height="32" rx="3" strokeWidth="1.2" />
-      <rect x="56" y="30" width="7" height="20" rx="1.5" strokeWidth="1.5" />
-      <rect x="177" y="30" width="7" height="20" rx="1.5" strokeWidth="1.5" />
-      <rect x="184" y="24" width="22" height="32" rx="3" strokeWidth="1.2" />
-      <rect x="206" y="16" width="20" height="48" rx="4" strokeWidth="1.2" />
-    </svg>
-  );
-}
+const DOB = new Date("2002-02-24");
+const LIFE_EXPECTANCY_YEARS = 67.7; // Kenya average
+const WEEKS_PER_ROW = 52;
+const TOTAL_WEEKS = Math.round(LIFE_EXPECTANCY_YEARS * 52);
 
-function BikeSVG() {
+function LifeInWeeks() {
+  const now = new Date();
+  const msPerWeek = 7 * 24 * 60 * 60 * 1000;
+  const weeksLived = Math.min(
+    Math.floor((now.getTime() - DOB.getTime()) / msPerWeek),
+    TOTAL_WEEKS
+  );
+  const yearsLived = Math.floor(weeksLived / 52);
+  const weeksRemaining = TOTAL_WEEKS - weeksLived;
+  const pctLived = Math.round((weeksLived / TOTAL_WEEKS) * 100);
+  const rows = Math.ceil(TOTAL_WEEKS / WEEKS_PER_ROW);
+
   return (
-    <svg
-      viewBox="0 0 280 180"
-      fill="none"
-      xmlns="http://www.w3.org/2000/svg"
-      stroke="currentColor"
-      className="w-full h-full"
-    >
-      <circle cx="72" cy="124" r="50" strokeWidth="1.2" />
-      <circle cx="72" cy="124" r="3.5" fill="currentColor" strokeWidth="0" />
-      <circle cx="72" cy="124" r="14" strokeWidth="0.7" />
-      <circle cx="208" cy="124" r="50" strokeWidth="1.2" />
-      <circle cx="208" cy="124" r="3.5" fill="currentColor" strokeWidth="0" />
-      <circle cx="140" cy="124" r="7" strokeWidth="0.8" />
-      <line x1="75" y1="124" x2="133" y2="124" strokeWidth="1.2" />
-      <line x1="140" y1="124" x2="118" y2="68" strokeWidth="1.5" />
-      <line x1="118" y1="68" x2="172" y2="68" strokeWidth="1.5" />
-      <line x1="172" y1="68" x2="140" y2="124" strokeWidth="1.5" />
-      <line x1="118" y1="68" x2="72" y2="124" strokeWidth="1.2" />
-      <line x1="172" y1="60" x2="208" y2="124" strokeWidth="1.5" />
-      <line x1="168" y1="54" x2="176" y2="72" strokeWidth="2" />
-      <line x1="168" y1="54" x2="155" y2="46" strokeWidth="1.5" />
-      <path d="M 148 43 Q 155 39 162 44" strokeWidth="1.5" fill="none" />
-      <line x1="118" y1="68" x2="122" y2="50" strokeWidth="1.5" />
-      <path d="M 113 48 Q 122 43 131 48" strokeWidth="1.8" fill="none" />
-      <line x1="140" y1="124" x2="128" y2="137" strokeWidth="1.5" />
-      <line x1="140" y1="124" x2="152" y2="111" strokeWidth="1.5" />
-      <line x1="122" y1="135" x2="134" y2="139" strokeWidth="1.5" />
-      <line x1="146" y1="109" x2="158" y2="113" strokeWidth="1.5" />
-    </svg>
+    <section className="max-w-5xl mx-auto px-3 sm:px-6 py-12 sm:py-20">
+      {/* Header */}
+      <div className="flex items-center gap-4 mb-10">
+        <span style={{ color: "rgba(196,147,90,0.7)", fontSize: "0.875rem" }}>＋</span>
+        <div className="flex-1 h-px" style={{ background: "rgba(138,191,152,0.10)" }} />
+        <span
+          style={{
+            fontFamily: "var(--font-inter, sans-serif)",
+            fontSize: "0.65rem",
+            letterSpacing: "0.18em",
+            textTransform: "uppercase",
+            color: "rgba(245,245,220,0.30)",
+          }}
+        >
+          Life in Weeks
+        </span>
+        <div className="flex-1 h-px" style={{ background: "rgba(138,191,152,0.10)" }} />
+        <span style={{ color: "rgba(196,147,90,0.7)", fontSize: "0.875rem" }}>＋</span>
+      </div>
+
+      {/* Stats row */}
+      <div className="grid grid-cols-2 sm:flex sm:flex-wrap gap-x-10 gap-y-4 mb-10">
+        {[
+          { label: "Age", value: `${yearsLived} years` },
+          { label: "Weeks lived", value: weeksLived.toLocaleString() },
+          { label: "Weeks remaining", value: weeksRemaining.toLocaleString() },
+          { label: "% elapsed", value: `${pctLived}%` },
+        ].map(({ label, value }) => (
+          <div key={label}>
+            <p
+              style={{
+                fontFamily: "var(--font-inter, sans-serif)",
+                fontSize: "0.6rem",
+                letterSpacing: "0.14em",
+                textTransform: "uppercase",
+                color: "rgba(245,245,220,0.25)",
+                marginBottom: "2px",
+              }}
+            >
+              {label}
+            </p>
+            <p
+              style={{
+                fontFamily: "var(--font-cormorant), Georgia, serif",
+                fontSize: "1.1rem",
+                fontWeight: 300,
+                color: "rgba(245,245,220,0.65)",
+              }}
+            >
+              {value}
+            </p>
+          </div>
+        ))}
+      </div>
+
+      {/* Two-column: grid left, commentary right */}
+      <div className="flex flex-col lg:flex-row gap-12 lg:gap-16 items-start">
+
+        {/* Dot grid */}
+        <div>
+          <div
+            className="pb-2"
+            style={{ overflowX: "auto" }}
+            aria-label="Life in weeks grid"
+          >
+            <div
+              className="liw-grid"
+              style={{
+                display: "grid",
+                gridTemplateColumns: `repeat(${WEEKS_PER_ROW}, 7px)`,
+                gap: "3px",
+                width: "fit-content",
+              }}
+            >
+              {Array.from({ length: rows }, (_, rowIdx) =>
+                Array.from({ length: WEEKS_PER_ROW }, (_, colIdx) => {
+                  const weekIdx = rowIdx * WEEKS_PER_ROW + colIdx;
+                  if (weekIdx >= TOTAL_WEEKS) return null;
+                  const lived = weekIdx < weeksLived;
+                  return (
+                    <div
+                      key={weekIdx}
+                      className="liw-dot"
+                      title={`Week ${weekIdx + 1}`}
+                      style={{
+                        width: "7px",
+                        height: "7px",
+                        borderRadius: "1px",
+                        background: lived
+                          ? "rgba(245,245,220,0.62)"
+                          : "rgba(245,245,220,0.07)",
+                      }}
+                    />
+                  );
+                })
+              )}
+            </div>
+          </div>
+
+          {/* Legend */}
+          <div
+            className="flex flex-wrap items-center gap-x-5 gap-y-2 mt-5"
+            style={{
+              fontFamily: "var(--font-inter, sans-serif)",
+              fontSize: "0.6rem",
+              letterSpacing: "0.10em",
+              color: "rgba(245,245,220,0.25)",
+              textTransform: "uppercase",
+            }}
+          >
+            <span className="flex items-center gap-2">
+              <span className="liw-legend-dot" style={{ display: "inline-block", width: "7px", height: "7px", borderRadius: "1px", background: "rgba(245,245,220,0.62)", flexShrink: 0 }} />
+              Lived
+            </span>
+            <span className="flex items-center gap-2">
+              <span className="liw-legend-dot" style={{ display: "inline-block", width: "7px", height: "7px", borderRadius: "1px", background: "rgba(245,245,220,0.07)", border: "1px solid rgba(245,245,220,0.10)", flexShrink: 0 }} />
+              Remaining
+            </span>
+            <span>52 weeks · 1 row = 1 year</span>
+          </div>
+        </div>
+
+        {/* Commentary — sticky on desktop */}
+        <div
+          className="lg:sticky lg:top-24 shrink-0 lg:max-w-[260px]"
+          style={{
+            fontFamily: "var(--font-inter, sans-serif)",
+            fontSize: "0.82rem",
+            lineHeight: 1.75,
+            color: "rgba(245,245,220,0.62)",
+          }}
+        >
+          <p style={{ marginBottom: "1.2rem" }}>
+            So apparently the life expectancy of a Kenyan is 67.7 years.
+          </p>
+          <div
+            style={{
+              height: "1px",
+              background: "rgba(245,245,220,0.08)",
+              margin: "1.4rem 0",
+            }}
+          />
+          <p style={{ marginBottom: "0.8rem" }}>
+            The original life-in-weeks idea belongs to Tim Urban. He drew it for himself
+            and then made everyone else feel this existential dread.<br /> Have fun with it, see your life in Mondays.
+          </p>
+          <a
+            href="https://waitbutwhy.com/2014/05/life-weeks.html"
+            target="_blank"
+            rel="noopener noreferrer"
+            style={{
+              display: "inline-block",
+              fontSize: "0.68rem",
+              letterSpacing: "0.10em",
+              textTransform: "uppercase",
+              color: "rgba(245,245,220,0.30)",
+              textDecoration: "none",
+              borderBottom: "1px solid rgba(245,245,220,0.15)",
+              paddingBottom: "1px",
+              transition: "color 0.2s, border-color 0.2s",
+            }}
+          >
+            Learn more about it here →
+          </a>
+        </div>
+      </div>
+    </section>
   );
 }
 
 export default function AboutPage() {
   return (
     <div
-      className="min-h-screen relative"
+      className="about-bg min-h-screen relative"
       style={{
         backgroundImage: "url('/backg.jpg')",
         backgroundSize: "cover",
@@ -72,14 +207,37 @@ export default function AboutPage() {
         backgroundAttachment: "fixed",
       }}
     >
-      <div className="absolute inset-0 z-0" style={{ background: "rgba(6,18,14,0.72)" }} />
-      <style>{`:root { --page-bg: #0d1e20; }`}</style>
+      <div className="absolute inset-0 z-0" style={{ background: "rgba(4,47,46,0.84)" }} />
+      <style>{`
+        :root { --page-bg: #042F2E; }
+        /* iOS Safari doesn't support background-attachment: fixed */
+        @media (max-width: 767px) {
+          .about-bg { background-attachment: scroll !important; }
+        }
+        /* Shrink Life in Weeks dots on small screens so grid fits without scrolling */
+        @media (max-width: 599px) {
+          .liw-grid {
+            grid-template-columns: repeat(52, 5px) !important;
+            gap: 2px !important;
+          }
+          .liw-dot { width: 5px !important; height: 5px !important; }
+          .liw-legend-dot { width: 5px !important; height: 5px !important; }
+        }
+        @media (max-width: 399px) {
+          .liw-grid {
+            grid-template-columns: repeat(52, 4px) !important;
+            gap: 1px !important;
+          }
+          .liw-dot { width: 4px !important; height: 4px !important; }
+          .liw-legend-dot { width: 4px !important; height: 4px !important; }
+        }
+      `}</style>
       <PageHeader />
 
       <div className="relative z-10 pt-12 pb-24">
 
-        {/* ─── Hero headline ─── */}
-        <div className="max-w-5xl mx-auto px-6 pt-12 pb-16">
+        {/* ─── Hero ─── */}
+        <div className="max-w-5xl mx-auto px-6 pt-8 sm:pt-12 pb-10 sm:pb-16">
           <h1
             className="leading-[0.9] tracking-tight mb-8"
             style={{
@@ -90,125 +248,108 @@ export default function AboutPage() {
               color: "var(--color-text-primary)",
             }}
           >
-            Steve Muiga builds software,<br />
-            runs roads, and reads<br />
-            when the world lets him.
+            Creative developer and a professional amateur in the world of endurance sport<br />
           </h1>
           <p
             className="text-sm italic"
             style={{ color: "var(--color-text-secondary)" }}
           >
-            Software engineer. Runner. Rider. Reader. Believer.
+            Software engineer  · Amateur hybrid athlete
           </p>
         </div>
 
-        {/* ─── Dumbbell row ─── */}
-        <div
-          className="w-full border-y overflow-hidden py-5"
-          style={{ borderColor: "rgba(138,191,152,0.10)", color: "rgba(138,191,152,0.22)" }}
-        >
-          <div className="flex items-center justify-center gap-8 px-8">
-            {[70, 90, 110, 90, 70].map((w, i) => (
-              <div
-                key={i}
-                style={{ width: `${w}px`, height: `${Math.round(w / 3)}px`, flexShrink: 0 }}
-              >
-                <DumbbellSVG />
-              </div>
-            ))}
-          </div>
-        </div>
-
-        {/* ─── Two-column body ─── */}
-        <div className="max-w-5xl mx-auto px-6 py-20">
-
-          {/* Divider */}
-          <div className="flex items-center gap-4 mb-16">
-            <span style={{ color: "var(--color-accent-2)", fontSize: "0.875rem" }}>＋</span>
+        {/* ─── Divider ─── */}
+        <div className="max-w-5xl mx-auto px-6">
+          <div className="flex items-center gap-4">
+            {/* <span style={{ color: "rgba(196,147,90,0.7)", fontSize: "0.875rem" }}>＋</span> */}
             <div className="flex-1 h-px" style={{ background: "rgba(138,191,152,0.12)" }} />
-            <span style={{ color: "var(--color-accent-2)", fontSize: "0.875rem" }}>＋</span>
+            {/* <span style={{ color: "rgba(196,147,90,0.7)", fontSize: "0.875rem" }}>＋</span> */}
           </div>
+        </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-20">
+        {/* ─── Bio ─── */}
+        <div className="max-w-5xl mx-auto px-6 py-10 sm:py-20">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-20">
 
-            {/* Left */}
             <div
               className="space-y-6 leading-relaxed"
               style={{ color: "var(--color-text-primary)", fontSize: "1rem" }}
             >
               <p>
-                I&apos;m a software engineer by profession — I build things for a
-                living, which means I spend a lot of time thinking about how
-                systems fit together and where they break.
+                Hi, my name is Steve and I'm a software engineer by trade. I didn't grow up around computers. 
+                In fact, I built my first website a few years ago—a site for a local cafe that took me three 
+                days locked in my room following an HTML & CSS tutorial. I remember its centerpiece was a massive
+                <span style={{
+              fontFamily: "var(--font-spectral), Georgia, serif",
+              fontWeight: 5,
+              fontStyle: "italic",
+              fontSize: "clamp(1rem, 8vw, 1.5rem)",
+              color: "var(--color-text-primary)",
+            }}>"Let's meat"</span> headline that I thought was genius at the time. 
+                I haven't touched that site since but I have 
+                 created better and fun websites <i style={{
+              fontFamily: "var(--font-spectral), Georgia, serif",
+            }}>(like this one)</i> ever since. 
               </p>
               <p>
-                Outside of code, I run. Long distances. The kind that require
-                you to carry your own food and negotiate with yourself at
-                kilometre thirty. I also cycle roads and lift weights, because
-                the body and mind work better when they&apos;re both being tested.
-              </p>
-              <p>
-                This site is my attempt at writing — slowly, carefully, without
-                the pressure of a deadline. Every essay here is something I
-                needed to think through out loud.
+                I used to run a lot. If it involves a start, an end and a humbling journey 
+                to get from one to the other then I’m probably passionate about it;  I cycle relatively long distances.
+                I can squat twice your weight. I love solo hikes. All this goes to say that
+                I have a questionable relationship with discomfort, which I've come to terms with. Invite me for a session!
               </p>
             </div>
 
-            {/* Right */}
             <div
               className="space-y-6 leading-relaxed"
               style={{ color: "var(--color-text-primary)", fontSize: "1rem" }}
             >
               <p>
-                I&apos;m a Christian. My faith shapes how I think about
-                everything — about time, about work, about what it means to do
-                anything well. I don&apos;t write about faith to argue. I write
-                about it because it is genuinely at the center of how I
-                understand the world.
+                I&apos;m a Christian. My faith shapes how
+                I think about time, work, people, and what it means to do anything well. 
               </p>
               <p>
-                I grew up as the only brother of three sisters. That fact
-                shaped me more than most things — it taught me to listen, to
-                hold space, and to understand that the people closest to you
-                are always worth paying attention to.
+                I have a playlist called <i style={{
+              fontFamily: "var(--font-spectral), Georgia, serif",
+            }}>Mimi ni Mhindie</i> because I listen to Indie. 
+                I enjoy playing Kenya @50, cracks me up to see the different perceptions people have of the items they're describing.
               </p>
-              <p>
-                If you&apos;re here, you probably found an essay that meant
-                something to you. I&apos;m glad it did. That&apos;s the whole point.
+              <p>Simply put: I am a guy in Kenya interested in creative stuff.
+                In late 2025, we tossed around the idea of starting a software company. Fast-forward and we are building 
+                products at <a
+                  href="https://www.origin.co.ke"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  style={{
+                    color: "rgba(138,191,152,0.65)",
+                    textDecoration: "none",
+                    borderBottom: "1px solid rgba(138,191,152,0.25)",
+                    paddingBottom: "1px",
+                    transition: "color 0.2s, border-color 0.2s",
+                  }}
+                >
+                  Origin HQ
+                </a> and learning a ton.
               </p>
+              <p>One of my goals in 2026 is to simplify my defaults and build from first principles as I broaden my skillset.</p>
             </div>
           </div>
         </div>
 
-        {/* ─── Bike decoration ─── */}
-        <div
-          className="w-full border-t overflow-hidden"
-          style={{ borderColor: "rgba(138,191,152,0.08)", color: "rgba(138,191,152,0.20)" }}
-        >
-          <div className="flex items-end justify-center gap-4 px-6 py-4">
-            {[70, 95, 120, 95, 70].map((height, i) => (
-              <div
-                key={i}
-                style={{
-                  width: `${height * 1.56}px`,
-                  height: `${height}px`,
-                  flexShrink: 0,
-                }}
-              >
-                <BikeSVG />
-              </div>
-            ))}
-          </div>
-        </div>
+        {/* ─── Life in Weeks ─── */}
+        <LifeInWeeks />
 
         {/* ─── CTA ─── */}
-        <div className="max-w-5xl mx-auto px-6 pt-16 pb-4 text-center">
+        <div className="max-w-5xl mx-auto px-6 pt-8 pb-4 text-center">
           <a
-            href="/stay-in-the-fold"
-            className="inline-block px-10 py-4 rounded-full font-medium transition-colors bg-[var(--color-button)] hover:bg-[var(--color-accent-2)] text-[var(--color-text-primary)]"
+            href="https://stevemuiga.substack.com"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-block px-10 py-4 rounded-full font-medium transition-opacity hover:opacity-80"
+            style={{ background: "rgb(255, 103, 25)", color: "#fff" }}
           >
-            stay in the fold
+            Subscribe to the newsletter
           </a>
+          <p>Thanks for stopping by!</p>
         </div>
       </div>
     </div>

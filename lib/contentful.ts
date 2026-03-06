@@ -5,7 +5,7 @@ interface ContentfulEssay {
   title: string;
   slug: string;
   date: string;
-  category?: "origami" | "faith" | "coding" | "random" | "thoughts";
+  category?: "technical" | "nontechnical";
   excerpt?: string;
   image?: {
     sys: {
@@ -106,6 +106,135 @@ export async function getContentfulEssayBySlug(slug: string): Promise<any | null
     return null;
   }
 }
+
+// ─── Projects ────────────────────────────────────────────────────────────────
+
+export async function getAllProjects(): Promise<any[]> {
+  try {
+    const entries = await client.getEntries({
+      content_type: "project",
+      order: "-fields.year" as any,
+      include: 2,
+    });
+
+    return entries.items.map((item) => {
+      const fields = item.fields as any;
+      let thumbnailUrl: string | undefined;
+      if (fields.thumbnail) {
+        const thumb = Array.isArray(fields.thumbnail) ? fields.thumbnail[0] : fields.thumbnail;
+        if (thumb?.fields?.file) thumbnailUrl = `https:${thumb.fields.file.url}`;
+      }
+      return {
+        title:       fields.title,
+        description: fields.description,
+        type:        fields.type || "website",
+        href:        fields.link || null,
+        thumbnail:   thumbnailUrl,
+        year:        fields.year ? new Date(fields.year).getFullYear().toString() : "",
+      };
+    });
+  } catch (error) {
+    console.error("Error fetching projects:", error);
+    return [];
+  }
+}
+
+// ─── Lab ──────────────────────────────────────────────────────────────────────
+
+export async function getAllLabs(): Promise<any[]> {
+  try {
+    const entries = await client.getEntries({
+      content_type: "lab",
+      order: "-fields.year" as any,
+      include: 2,
+    });
+
+    return entries.items.map((item) => {
+      const fields = item.fields as any;
+      let thumbnailUrl: string | undefined;
+      if (fields.thumbnail) {
+        const thumb = Array.isArray(fields.thumbnail) ? fields.thumbnail[0] : fields.thumbnail;
+        if (thumb?.fields?.file) thumbnailUrl = `https:${thumb.fields.file.url}`;
+      }
+      return {
+        title:       fields.title,
+        description: richTextToString(fields.description),
+        href:        fields.link || null,
+        thumbnail:   thumbnailUrl,
+        year:        fields.year ? new Date(fields.year).getFullYear().toString() : "",
+        tags:        Array.isArray(fields.tag) ? fields.tag : (fields.tag ? [fields.tag] : []),
+        writeup:     fields.writeup || null,
+      };
+    });
+  } catch (error) {
+    console.error("Error fetching lab items:", error);
+    return [];
+  }
+}
+
+// ─── Books ────────────────────────────────────────────────────────────────────
+
+function richTextToString(doc: any): string {
+  if (!doc || typeof doc !== "object") return String(doc ?? "");
+  if (doc.nodeType === "text") return doc.value || "";
+  if (Array.isArray(doc.content)) return doc.content.map(richTextToString).join("");
+  return "";
+}
+
+export async function getAllBooks(): Promise<any[]> {
+  try {
+    const entries = await client.getEntries({
+      content_type: "book",
+      order: "-fields.yearRead" as any,
+      include: 2,
+    });
+
+    return entries.items.map((item) => {
+      const fields = item.fields as any;
+      let coverUrl: string | undefined;
+      if (fields.coverImage) {
+        const img = Array.isArray(fields.coverImage) ? fields.coverImage[0] : fields.coverImage;
+        if (img?.fields?.file) coverUrl = `https:${img.fields.file.url}`;
+      }
+      return {
+        title:    fields.title,
+        author:   fields.author,
+        cover:    coverUrl,
+        yearRead: fields.yearRead ? new Date(fields.yearRead).getFullYear().toString() : "",
+        tag:      fields.tag,
+        reaction: richTextToString(fields.reaction),
+      };
+    });
+  } catch (error) {
+    console.error("Error fetching books:", error);
+    return [];
+  }
+}
+
+// ─── Quotes ───────────────────────────────────────────────────────────────────
+
+export async function getAllQuotes(): Promise<any[]> {
+  try {
+    const entries = await client.getEntries({
+      content_type: "quote",
+      include: 1,
+    });
+
+    return entries.items.map((item) => {
+      const fields = item.fields as any;
+      return {
+        text:        fields.text,
+        attribution: fields.attribution,
+        type:        fields.type,
+      };
+    });
+  } catch (error) {
+    console.error("Error fetching quotes:", error);
+    return [];
+  }
+}
+
+// ─── Essay slugs ──────────────────────────────────────────────────────────────
 
 export async function getAllContentfulEssaySlugs(): Promise<string[]> {
   try {

@@ -39,9 +39,7 @@ export default async function EssayPage({ params }: EssayPageProps) {
     notFound();
   }
 
-  const substackUrl =
-    essay.frontmatter.substackUrl ??
-    `https://stevemuiga.substack.com/p/${essay.slug}`;
+  const substackUrl = essay.frontmatter.substackUrl ?? null;
 
   return (
     <div>
@@ -118,16 +116,16 @@ export default async function EssayPage({ params }: EssayPageProps) {
               <span>{essay.frontmatter.category}</span>
             </>
           )}
-          <span style={{ opacity: 0.4, marginLeft: "auto" }}>
+          {substackUrl && (
             <a
               href={substackUrl}
               target="_blank"
               rel="noopener noreferrer"
-              style={{ color: "var(--color-accent-1)" }}
+              style={{ color: "var(--color-accent-1)", marginLeft: "auto", opacity: 0.8 }}
             >
               Read on Substack ↗
             </a>
-          </span>
+          )}
         </div>
 
         <article

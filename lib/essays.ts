@@ -12,7 +12,7 @@ export interface EssayFrontmatter {
   date: string;
   folds?: number;
   excerpt?: string;
-  category?: "origami" | "faith" | "coding" | "random" | "thoughts";
+  category?: "technical" | "nontechnical";
   image?: string;
   substackUrl?: string;
 }
@@ -99,7 +99,7 @@ export async function getAllEssaySlugs(): Promise<string[]> {
 }
 
 export async function getEssaysByCategory(
-  category: "origami" | "faith" | "coding" | "random" | "thoughts"
+  category: "technical" | "nontechnical"
 ): Promise<Essay[]> {
   const essays = await getAllEssays();
   return essays.filter((essay) => essay.frontmatter.category === category);

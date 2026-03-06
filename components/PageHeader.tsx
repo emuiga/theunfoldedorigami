@@ -5,18 +5,10 @@ import { usePathname } from "next/navigation";
 import { useState } from "react";
 
 const navLinks = [
-  { href: "/origami", label: "Work", key: "W" },
-  { href: "/thoughts", label: "Thoughts", key: "T" },
-  { href: "/about", label: "About Me", key: "A" },
-];
-
-const mobileNav = [
-  { href: "/origami", label: "Work" },
-  { href: "/thoughts", label: "Thoughts" },
-  { href: "/faith", label: "Faith" },
-  { href: "/coding", label: "Coding" },
-  { href: "/about", label: "About Me" },
-  { href: "/stay-in-the-fold", label: "Stay in the fold" },
+  { href: "/origami",   label: "Work"      },
+  { href: "/thoughts",  label: "Thoughts"  },
+  { href: "/interests", label: "Interests" },
+  { href: "/about",     label: "About Me"  },
 ];
 
 export function PageHeader() {
@@ -27,151 +19,147 @@ export function PageHeader() {
     pathname === href || (pathname?.startsWith(href + "/") ?? false);
 
   return (
-    <header className="sticky top-0 z-50 w-full">
-      {/* ── Desktop ── */}
-      <div className="hidden md:flex items-center justify-center px-6 py-3">
+    <header className="sticky top-0 z-50 w-full flex justify-center px-4 py-3">
+      <div style={{ width: "100%", maxWidth: "780px", position: "relative" }}>
         <nav
           style={{
             width: "100%",
-            height: "54px",
-            borderRadius: "50%",
-            border: "1px solid rgba(138,191,152,0.22)",
-            background: "rgba(14,26,20,0.88)",
-            backdropFilter: "blur(14px)",
+            height: "48px",
+            borderRadius: "9999px",
+            border: "1px solid rgba(245,245,220,0.10)",
+            background: "#042F2E",
             display: "flex",
             alignItems: "center",
             justifyContent: "space-between",
-            padding: "0 40px",
+            padding: "0 22px",
           }}
         >
-          {/* Left + */}
+          {/* Logo */}
           <Link
             href="/"
-            aria-label="Home"
-            className="text-base leading-none hover:opacity-70 transition-opacity"
-            style={{ color: "rgba(138,191,152,0.45)" }}
-          >
-            +
-          </Link>
-
-          {/* Nav links */}
-          {navLinks.map(({ href, label, key }) => (
-            <Link
-              key={href}
-              href={href}
-              className="flex items-center gap-2 text-sm tracking-wide transition-colors"
-              style={{
-                color: isActive(href)
-                  ? "var(--color-text-primary)"
-                  : "var(--color-text-secondary)",
-                textDecoration: isActive(href) ? "underline" : "none",
-                textUnderlineOffset: "5px",
-                textDecorationColor: "var(--color-accent-1)",
-              }}
-            >
-              {label}
-              <span
-                style={{
-                  display: "inline-flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  width: "20px",
-                  height: "18px",
-                  border: "1px solid rgba(138,191,152,0.28)",
-                  borderRadius: "3px",
-                  color: "rgba(138,191,152,0.55)",
-                  fontSize: "10px",
-                  fontFamily: "monospace",
-                  lineHeight: 1,
-                  flexShrink: 0,
-                }}
-              >
-                {key}
-              </span>
-            </Link>
-          ))}
-
-          {/* Right + */}
-          <Link
-            href="/stay-in-the-fold"
-            aria-label="Subscribe"
-            className="text-base leading-none hover:opacity-70 transition-opacity"
-            style={{ color: "rgba(138,191,152,0.45)" }}
-          >
-            +
-          </Link>
-        </nav>
-      </div>
-
-      {/* ── Mobile ── */}
-      <div
-        className="md:hidden flex items-center justify-between px-5 border-b backdrop-blur-md relative"
-        style={{
-          height: "52px",
-          borderColor: "rgba(138,191,152,0.12)",
-          background: "var(--page-bg, #0e1a14)",
-        }}
-      >
-        <Link
-          href="/"
-          className="text-sm tracking-[0.18em] uppercase font-light"
-          style={{ color: "var(--color-text-primary)" }}
-        >
-          Origami
-        </Link>
-
-        <button
-          onClick={() => setOpen(!open)}
-          aria-label="Toggle menu"
-          className="flex flex-col gap-[5px] items-end w-6"
-        >
-          {[0, 1, 2].map((i) => (
-            <span
-              key={i}
-              className="block h-px transition-all duration-300 origin-right"
-              style={{
-                background: "var(--color-accent-1)",
-                width: i === 1 ? (open ? "100%" : "70%") : "100%",
-                transform: open
-                  ? i === 0
-                    ? "rotate(-45deg) translateY(7px)"
-                    : i === 2
-                    ? "rotate(45deg) translateY(-7px)"
-                    : "scaleX(0)"
-                  : "none",
-                opacity: open && i === 1 ? 0 : 1,
-              }}
-            />
-          ))}
-        </button>
-
-        {open && (
-          <div
-            className="absolute top-full left-0 right-0 border-b backdrop-blur-md z-50"
+            onClick={() => setOpen(false)}
             style={{
-              borderColor: "rgba(138,191,152,0.12)",
-              background: "var(--page-bg, #0e1a14)",
+              fontFamily: "var(--font-cormorant), Georgia, serif",
+              fontWeight: 400,
+              fontSize: "1rem",
+              letterSpacing: "0.08em",
+              color: "rgba(245,245,220,0.88)",
+              whiteSpace: "nowrap",
+              textDecoration: "none",
             }}
           >
-            <nav className="flex flex-col px-6 py-7 gap-5">
-              {mobileNav.map(({ href, label }) => (
-                <Link
-                  key={href}
-                  href={href}
-                  onClick={() => setOpen(false)}
-                  className="text-base transition-colors"
-                  style={{
-                    color: isActive(href)
-                      ? "var(--color-accent-1)"
-                      : "var(--color-text-secondary)",
-                  }}
-                >
-                  {label}
-                </Link>
-              ))}
-            </nav>
+            S. Muiga
+          </Link>
+
+          {/* Desktop nav links */}
+          <div
+            className="hidden sm:flex"
+            style={{ alignItems: "center", gap: "clamp(14px, 3.5vw, 32px)" }}
+          >
+            {navLinks.map(({ href, label }) => (
+              <Link
+                key={href}
+                href={href}
+                style={{
+                  fontFamily: "var(--font-inter, sans-serif)",
+                  fontSize: "0.78rem",
+                  letterSpacing: "0.07em",
+                  color: isActive(href) ? "rgba(245,245,220,0.98)" : "rgba(245,245,220,0.60)",
+                  textDecoration: isActive(href) ? "underline" : "none",
+                  textUnderlineOffset: "4px",
+                  textDecorationColor: "rgba(245,245,220,0.35)",
+                  transition: "color 0.15s",
+                  whiteSpace: "nowrap",
+                }}
+              >
+                {label}
+              </Link>
+            ))}
           </div>
-        )}
+
+          {/* Mobile hamburger */}
+          <button
+            className="flex sm:hidden flex-col justify-center items-center gap-[5px]"
+            onClick={() => setOpen((v) => !v)}
+            aria-label="Toggle menu"
+            style={{ background: "none", border: "none", cursor: "pointer", padding: "4px" }}
+          >
+            <span
+              style={{
+                display: "block",
+                width: "20px",
+                height: "1.5px",
+                background: "rgba(245,245,220,0.80)",
+                transition: "transform 0.22s, opacity 0.22s",
+                transformOrigin: "center",
+                transform: open ? "translateY(6.5px) rotate(45deg)" : "none",
+              }}
+            />
+            <span
+              style={{
+                display: "block",
+                width: "20px",
+                height: "1.5px",
+                background: "rgba(245,245,220,0.80)",
+                transition: "opacity 0.22s",
+                opacity: open ? 0 : 1,
+              }}
+            />
+            <span
+              style={{
+                display: "block",
+                width: "20px",
+                height: "1.5px",
+                background: "rgba(245,245,220,0.80)",
+                transition: "transform 0.22s, opacity 0.22s",
+                transformOrigin: "center",
+                transform: open ? "translateY(-6.5px) rotate(-45deg)" : "none",
+              }}
+            />
+          </button>
+        </nav>
+
+        {/* Mobile dropdown */}
+        <div
+          className="sm:hidden overflow-hidden"
+          style={{
+            maxHeight: open ? "260px" : "0px",
+            transition: "max-height 0.32s cubic-bezier(0.4, 0, 0.2, 1)",
+          }}
+        >
+          <div
+            style={{
+              marginTop: "8px",
+              borderRadius: "16px",
+              border: "1px solid rgba(245,245,220,0.10)",
+              background: "#042F2E",
+              padding: "8px 0",
+            }}
+          >
+            {navLinks.map(({ href, label }) => (
+              <Link
+                key={href}
+                href={href}
+                onClick={() => setOpen(false)}
+                style={{
+                  display: "block",
+                  padding: "12px 22px",
+                  fontFamily: "var(--font-inter, sans-serif)",
+                  fontSize: "0.88rem",
+                  letterSpacing: "0.06em",
+                  color: isActive(href) ? "rgba(245,245,220,0.98)" : "rgba(245,245,220,0.60)",
+                  textDecoration: "none",
+                  borderLeft: isActive(href)
+                    ? "2px solid rgba(138,191,152,0.6)"
+                    : "2px solid transparent",
+                  transition: "color 0.15s",
+                }}
+              >
+                {label}
+              </Link>
+            ))}
+          </div>
+        </div>
       </div>
     </header>
   );
