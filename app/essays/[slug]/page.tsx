@@ -110,12 +110,6 @@ export default async function EssayPage({ params }: EssayPageProps) {
               })}
             </span>
           )}
-          {essay.frontmatter.category && (
-            <>
-              <span style={{ opacity: 0.4 }}>·</span>
-              <span>{essay.frontmatter.category}</span>
-            </>
-          )}
           {substackUrl && (
             <a
               href={substackUrl}

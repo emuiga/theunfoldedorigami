@@ -20,7 +20,7 @@ type Tab = "all" | "technical" | "nontechnical";
 const TAB_LABEL: Record<Tab, string> = {
   all: "All",
   technical: "Technical",
-  nontechnical: "Non-technical",
+  nontechnical: "Essays",
 };
 
 export function ThoughtsList({ essays }: { essays: Essay[] }) {
