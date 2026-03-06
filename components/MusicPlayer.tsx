@@ -1,16 +1,26 @@
 "use client";
 
-import { useState, useRef } from "react";
+import { useState } from "react";
 import Image from "next/image";
 
 const AUDIO_SRC = "/Ask%20Me%20Why%20-%20Mother's%20Thoughts%20%20(OST).mp3";
 
+// Module-level singleton — survives React remounts and Next.js navigation
+let _audio: HTMLAudioElement | null = null;
+function getAudio(): HTMLAudioElement | null {
+  if (typeof window === "undefined") return null;
+  if (!_audio) {
+    _audio = new Audio(AUDIO_SRC);
+    _audio.loop = true;
+  }
+  return _audio;
+}
+
 export function MusicPlayer() {
   const [playing, setPlaying] = useState(false);
-  const audioRef = useRef<HTMLAudioElement>(null);
 
   const toggle = () => {
-    const audio = audioRef.current;
+    const audio = getAudio();
     if (!audio) return;
     if (playing) {
       audio.pause();
@@ -73,8 +83,6 @@ export function MusicPlayer() {
             padding: "7px 14px 7px 10px",
           }}
         >
-          <audio ref={audioRef} src={AUDIO_SRC} loop preload="none" />
-
           <button
             onClick={toggle}
             aria-label={playing ? "Pause" : "Play"}
