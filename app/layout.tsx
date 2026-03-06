@@ -24,12 +24,13 @@ const cormorant = Cormorant_Garamond({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://www.theunfoldedorigami.com"),
   title: {
     default: "The Unfolded Origami",
     template: "%s | The Unfolded Origami",
   },
   description:
-    "Ideas, slowly unfolded. An essay-driven blog exploring thoughts through the metaphor of origami.",
+    "Ideas, slowly unfolded. Software, sweat and everything in between by Steve Muiga.",
   icons: {
     icon: "/pexels-padrinan-114977.jpg",
   },
@@ -37,6 +38,12 @@ export const metadata: Metadata = {
     title: "The Unfolded Origami",
     description: "Ideas, slowly unfolded.",
     type: "website",
+    siteName: "The Unfolded Origami",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "The Unfolded Origami",
+    description: "Ideas, slowly unfolded.",
   },
 };
 

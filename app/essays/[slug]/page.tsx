@@ -24,10 +24,26 @@ export async function generateMetadata({
     return { title: "Essay Not Found" };
   }
 
+  const description = essay.frontmatter.excerpt || "An essay from The Unfolded Origami";
+
   return {
-    title: `${essay.frontmatter.title} | The Unfolded Origami`,
-    description:
-      essay.frontmatter.excerpt || "An essay from The Unfolded Origami",
+    title: essay.frontmatter.title,
+    description,
+    openGraph: {
+      title: essay.frontmatter.title,
+      description,
+      type: "article",
+      siteName: "The Unfolded Origami",
+      ...(essay.frontmatter.image && {
+        images: [{ url: essay.frontmatter.image, width: 1200, height: 630 }],
+      }),
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: essay.frontmatter.title,
+      description,
+      ...(essay.frontmatter.image && { images: [essay.frontmatter.image] }),
+    },
   };
 }
 
