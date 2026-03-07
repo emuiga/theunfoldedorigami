@@ -15,6 +15,7 @@ export async function POST(req: NextRequest) {
     // Always revalidate the listing pages
     revalidatePath("/thoughts");
     revalidatePath("/essays");
+    revalidatePath("/interests");
 
     // Revalidate the specific essay page if we have the slug
     if (slug) {
