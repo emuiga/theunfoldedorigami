@@ -48,7 +48,7 @@ export async function getAllContentfulEssays(): Promise<any[]> {
         frontmatter: {
           title: fields.title,
           date: fields.date,
-          category: fields.category,
+          category: fields.category?.toLowerCase(),
           excerpt: fields.excerpt,
           image: imageUrl,
           folds: fields.folds,
@@ -93,7 +93,7 @@ export async function getContentfulEssayBySlug(slug: string): Promise<any | null
       frontmatter: {
         title: fields.title,
         date: fields.date,
-        category: fields.category,
+        category: fields.category?.toLowerCase(),
         excerpt: fields.excerpt,
         image: imageUrl,
         folds: fields.folds,
