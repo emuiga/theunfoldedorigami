@@ -30,7 +30,7 @@ export function ThoughtsList({ essays }: { essays: Essay[] }) {
 
   const filtered = essays.filter((e) => {
     if (active === "all") return true;
-    const cat = e.frontmatter.category ?? "nontechnical";
+    const cat = e.frontmatter.category === "technical" ? "technical" : "nontechnical";
     return cat === active;
   });
 
