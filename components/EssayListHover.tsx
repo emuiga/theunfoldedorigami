@@ -84,12 +84,26 @@ export function EssayListHover({ essays }: { essays: Essay[] }) {
                   }}
                 >
                   <div className="flex items-baseline gap-4 lg:gap-5">
-                    <span
-                      className="text-sm tabular-nums shrink-0 w-10"
-                      style={{ color: "var(--color-text-secondary)" }}
-                    >
-                      {year}
-                    </span>
+                    <div className="flex items-baseline gap-1.5 shrink-0">
+                      <span
+                        className="text-sm tabular-nums"
+                        style={{ color: "var(--color-text-secondary)" }}
+                      >
+                        {year}
+                      </span>
+                      {essay.frontmatter.category && (
+                        <>
+                          <span className="text-xs" style={{ color: "var(--color-text-secondary)", opacity: 0.4 }}>·</span>
+                          <span
+                            className="text-xs hidden sm:block"
+                            style={{ color: "var(--color-text-secondary)" }}
+                          >
+                            {essay.frontmatter.category.charAt(0).toUpperCase() +
+                              essay.frontmatter.category.slice(1)}
+                          </span>
+                        </>
+                      )}
+                    </div>
 
                     <div className="flex-1 min-w-0">
                       <span
@@ -117,14 +131,6 @@ export function EssayListHover({ essays }: { essays: Essay[] }) {
                     </div>
 
                     <div className="flex items-center gap-3 shrink-0">
-                      {essay.frontmatter.category && (
-                        <span
-                          className="text-xs lowercase hidden sm:block"
-                          style={{ color: "var(--color-text-secondary)" }}
-                        >
-                          {essay.frontmatter.category}
-                        </span>
-                      )}
                       <span
                         className="text-sm transition-colors duration-150"
                         style={{

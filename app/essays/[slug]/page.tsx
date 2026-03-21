@@ -126,6 +126,15 @@ export default async function EssayPage({ params }: EssayPageProps) {
               })}
             </span>
           )}
+          {essay.frontmatter.category && (
+            <>
+              <span style={{ opacity: 0.4 }}>·</span>
+              <span>
+                {essay.frontmatter.category.charAt(0).toUpperCase() +
+                  essay.frontmatter.category.slice(1)}
+              </span>
+            </>
+          )}
           {substackUrl && (
             <a
               href={substackUrl}
@@ -157,7 +166,17 @@ export default async function EssayPage({ params }: EssayPageProps) {
             lineHeight: "1.85",
           }}
         >
-          <ReactMarkdown>{essay.content}</ReactMarkdown>
+          <ReactMarkdown
+            components={{
+              a: ({ href, children }) => (
+                <a href={href} target="_blank" rel="noopener noreferrer">
+                  {children}
+                </a>
+              ),
+            }}
+          >
+            {essay.content}
+          </ReactMarkdown>
         </article>
       </div>
     </div>

@@ -12,7 +12,7 @@ export interface EssayFrontmatter {
   date: string;
   folds?: number;
   excerpt?: string;
-  category?: "technical" | "nontechnical";
+  category?: string;
   image?: string;
   substackUrl?: string;
 }
