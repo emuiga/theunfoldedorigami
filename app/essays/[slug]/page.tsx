@@ -1,8 +1,8 @@
 import { notFound } from "next/navigation";
 import Image from "next/image";
-import { getAllEssaySlugs, getEssayBySlug } from "@/lib/essays";
-import { PageHeader } from "@/components/PageHeader";
+import { getAllEssaySlugs, getEssayBySlug, getAllEssays } from "@/lib/essays";
 import ReactMarkdown from "react-markdown";
+import Link from "next/link";
 import type { Metadata } from "next";
 
 interface EssayPageProps {
@@ -14,18 +14,11 @@ export async function generateStaticParams() {
   return slugs.map((slug) => ({ slug }));
 }
 
-export async function generateMetadata({
-  params,
-}: EssayPageProps): Promise<Metadata> {
+export async function generateMetadata({ params }: EssayPageProps): Promise<Metadata> {
   const { slug } = await params;
   const essay = await getEssayBySlug(slug);
-
-  if (!essay) {
-    return { title: "Essay Not Found" };
-  }
-
+  if (!essay) return { title: "Essay Not Found" };
   const description = essay.frontmatter.excerpt || "An essay from The Unfolded Origami";
-
   return {
     title: essay.frontmatter.title,
     description,
@@ -47,138 +40,300 @@ export async function generateMetadata({
   };
 }
 
+function formatDate(dateStr: string) {
+  return new Date(dateStr).toLocaleDateString("en-US", {
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+  });
+}
+
 export default async function EssayPage({ params }: EssayPageProps) {
   const { slug } = await params;
-  const essay = await getEssayBySlug(slug);
+  const [essay, allEssays] = await Promise.all([
+    getEssayBySlug(slug),
+    getAllEssays(),
+  ]);
 
-  if (!essay) {
-    notFound();
-  }
+  if (!essay) notFound();
 
+  const currentIndex = allEssays.findIndex((e) => e.slug === slug);
+  const prev = currentIndex < allEssays.length - 1 ? allEssays[currentIndex + 1] : null;
+  const next = currentIndex > 0 ? allEssays[currentIndex - 1] : null;
   const substackUrl = essay.frontmatter.substackUrl ?? null;
+  const backHref = essay.frontmatter.category === "technical" ? "/origami" : "/thoughts";
 
   return (
-    <div>
-      <style>{`:root { --page-bg: #0e0e0e; }`}</style>
-      <PageHeader />
+    <div style={{ background: "#0a1410", minHeight: "100vh" }}>
+      <style>{`
+        :root { --page-bg: #0a1410; }
+        .prose p { margin-bottom: 1.6rem; }
+        .prose h2 {
+          font-family: var(--font-spectral), serif;
+          font-size: 1.4rem;
+          font-weight: 400;
+          color: rgb(245,245,220);
+          margin-top: 3rem;
+          margin-bottom: 0.9rem;
+        }
+        .prose h3 {
+          font-family: var(--font-spectral), serif;
+          font-size: 1.1rem;
+          font-weight: 400;
+          color: rgb(245,245,220);
+          margin-top: 2.2rem;
+          margin-bottom: 0.6rem;
+        }
+        .prose a {
+          color: rgba(232,108,61,0.85);
+          text-decoration: none;
+          border-bottom: 1px solid rgba(232,108,61,0.30);
+          padding-bottom: 1px;
+          transition: color 0.15s, border-color 0.15s;
+        }
+        .prose a:hover { color: #E86C3D; border-color: rgba(232,108,61,0.65); }
+        .prose ul { list-style: disc; margin-left: 1.5rem; margin-bottom: 1.6rem; }
+        .prose ol { list-style: decimal; margin-left: 1.5rem; margin-bottom: 1.6rem; }
+        .prose li { margin-bottom: 0.5rem; }
+        .prose blockquote {
+          border-left: 2px solid rgba(232,108,61,0.35);
+          padding-left: 1.2rem;
+          margin-left: 0;
+          font-style: italic;
+          color: rgb(245,245,220);
+          margin-bottom: 1.6rem;
+        }
+        .prose code {
+          font-size: 0.85em;
+          background: rgba(245,245,220,0.06);
+          border-radius: 3px;
+          padding: 0.15em 0.4em;
+          color: rgba(232,108,61,0.85);
+        }
+        .prose pre {
+          background: #111;
+          border: 1px solid rgba(245,245,220,0.07);
+          border-radius: 6px;
+          padding: 1.2rem;
+          overflow-x: auto;
+          margin-bottom: 1.6rem;
+        }
+        .prose pre code { background: none; padding: 0; color: rgb(245,245,220); }
+        .back-link { transition: color 0.15s; }
+        .back-link:hover { color: rgba(245,245,220,0.70) !important; }
+        .nav-link { transition: color 0.15s; }
+        .nav-link:hover { color: rgba(245,245,220,0.85) !important; }
+      `}</style>
 
-      {/* Cover image + title */}
-      <div className="relative w-full" style={{ minHeight: "40vh" }}>
-        {essay.frontmatter.image ? (
-          <div className="relative w-full" style={{ height: "45vh", minHeight: "280px" }}>
+
+      <main className="max-w-2xl mx-auto px-6 pt-10 pb-28">
+
+        {/* Site name */}
+        <p
+          style={{
+            fontFamily: "var(--font-cormorant), Georgia, serif",
+            fontWeight: 300,
+            fontStyle: "italic",
+            fontSize: "clamp(1.6rem, 4vw, 2.2rem)",
+             color: "rgb(245,245,220)",
+            marginBottom: "1.2rem",
+            textAlign: "center",
+          }}
+        >
+          The Unfolded Origami
+        </p>
+
+        {/* Amber rule */}
+        <div style={{ height: "2px", background: "rgba(196,147,90,0.55)", marginBottom: "2rem" }} />
+
+        {/* Article title — centred */}
+        <h1
+          style={{
+            fontFamily: "var(--font-spectral), serif",
+            fontWeight: 400,
+            fontSize: "clamp(1.8rem, 5vw, 2.6rem)",
+            lineHeight: 1.15,
+             color: "rgb(245,245,220)",
+            marginBottom: "0.8rem",
+          }}
+        >
+          {essay.frontmatter.title}
+        </h1>
+
+        {/* Excerpt subtitle */}
+        {essay.frontmatter.excerpt && (
+          <p
+            style={{
+              fontFamily: "var(--font-spectral), serif",
+              fontStyle: "italic",
+              fontWeight: 300,
+              fontSize: "1.05rem",
+              lineHeight: 1.55,
+               color: "rgb(245,245,220)",
+              textAlign: "center",
+              marginBottom: "1.4rem",
+            }}
+          >
+            {essay.frontmatter.excerpt}
+          </p>
+        )}
+
+        {/* Author + date row */}
+        <div style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: "0.7rem", marginBottom: "2rem" }}>
+          <span
+            style={{
+              fontFamily: "var(--font-mulish), Mulish, sans-serif",
+              fontSize: "0.62rem",
+              letterSpacing: "0.12em",
+              textTransform: "uppercase",
+               color: "rgb(245,245,220)",
+            }}
+          >
+            Steve Muiga
+          </span>
+          <span style={{  color: "rgb(245,245,220)", fontSize: "0.4rem" }}>◆</span>
+          {essay.frontmatter.date && (
+            <span
+              style={{
+                fontFamily: "var(--font-mulish), Mulish, sans-serif",
+                fontSize: "0.62rem",
+                letterSpacing: "0.08em",
+                 color: "rgb(245,245,220)",
+              }}
+            >
+              {formatDate(essay.frontmatter.date)}
+            </span>
+          )}
+          {essay.frontmatter.category && (
+            <span
+              style={{
+                fontFamily: "var(--font-mulish), Mulish, sans-serif",
+                fontSize: "0.56rem",
+                letterSpacing: "0.14em",
+                textTransform: "uppercase",
+                color: "rgba(232,108,61,0.60)",
+                border: "1px solid rgba(232,108,61,0.20)",
+                borderRadius: "9999px",
+                padding: "2px 8px",
+              }}
+            >
+              {essay.frontmatter.category}
+            </span>
+          )}
+          {substackUrl && (
+            <>
+              <span style={{  color: "rgb(245,245,220)", fontSize: "0.4rem" }}>◆</span>
+              <a
+                href={substackUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                style={{
+                  fontFamily: "var(--font-mulish), Mulish, sans-serif",
+                  fontSize: "0.60rem",
+                  letterSpacing: "0.10em",
+                  textTransform: "uppercase",
+                  color: "rgba(232,108,61,0.55)",
+                  textDecoration: "none",
+                  borderBottom: "1px solid rgba(232,108,61,0.20)",
+                }}
+              >
+                Substack &rarr;
+              </a>
+            </>
+          )}
+        </div>
+
+        {/* Cover image */}
+        {essay.frontmatter.image && (
+          <div
+            className="relative w-full mb-10"
+            style={{
+              height: "clamp(220px, 45vw, 420px)",
+              borderRadius: "6px",
+              overflow: "hidden",
+            }}
+          >
             <Image
               src={essay.frontmatter.image}
               alt={essay.frontmatter.title}
               fill
-              className="object-cover brightness-75"
+              className="object-cover"
               priority
+              style={{ filter: "brightness(1.05)" }}
             />
-            <div
-              className="absolute inset-0"
-              style={{ background: "rgba(14,14,14,0.35)" }}
-            />
-            <div className="absolute inset-0 flex items-end justify-center pb-10 px-6">
-              <h1
-                className="text-center leading-tight max-w-4xl"
-                style={{
-                  fontFamily: "var(--font-spectral), Georgia, serif",
-                  fontWeight: 400,
-                  fontSize: "clamp(2rem, 6vw, 4.5rem)",
-                  color: "var(--color-text-primary)",
-                }}
-              >
-                {essay.frontmatter.title}
-              </h1>
-            </div>
-          </div>
-        ) : (
-          <div className="flex items-center justify-center px-6 pt-24 pb-12">
-            <h1
-              className="text-center leading-tight max-w-3xl"
-              style={{
-                fontFamily: "var(--font-spectral), Georgia, serif",
-                fontWeight: 400,
-                fontSize: "clamp(2rem, 6vw, 4rem)",
-                color: "var(--color-text-primary)",
-              }}
-            >
-              {essay.frontmatter.title}
-            </h1>
           </div>
         )}
-      </div>
 
-      {/* Article content */}
-      <div className="max-w-2xl mx-auto px-6 py-16">
-        {/* Meta */}
-        <div
-          className="flex items-center gap-4 mb-10 text-sm pb-8"
-          style={{
-            color: "var(--color-text-secondary)",
-            borderBottom: "1px solid rgba(138,191,152,0.10)",
-          }}
-        >
-          {essay.frontmatter.date && (
-            <span>
-              {new Date(essay.frontmatter.date).toLocaleDateString("en-US", {
-                year: "numeric",
-                month: "long",
-              })}
-            </span>
-          )}
-          {essay.frontmatter.category && (
-            <>
-              <span style={{ opacity: 0.4 }}>·</span>
-              <span>
-                {essay.frontmatter.category.charAt(0).toUpperCase() +
-                  essay.frontmatter.category.slice(1)}
-              </span>
-            </>
-          )}
-          {substackUrl && (
-            <a
-              href={substackUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              style={{ color: "var(--color-accent-1)", marginLeft: "auto", opacity: 0.8 }}
-            >
-              Read on Substack ↗
-            </a>
-          )}
-        </div>
+        {/* Dashed divider */}
+        <div style={{ borderTop: "1px dashed rgba(245,245,220,0.12)", marginBottom: "2.5rem" }} />
 
+        {/* Body */}
         <article
-          className="[&_h1]:text-2xl [&_h1]:font-serif [&_h1]:mt-12 [&_h1]:mb-4 [&_h1]:font-light
-            [&_h2]:text-xl [&_h2]:font-serif [&_h2]:mt-10 [&_h2]:mb-3 [&_h2]:font-light
-            [&_h3]:text-lg [&_h3]:font-serif [&_h3]:mt-8 [&_h3]:mb-2
-            [&_p]:mb-5 [&_p]:leading-[1.85] [&_p]:text-[1.0625rem]
-            [&_a]:text-[var(--color-accent-1)] [&_a]:no-underline hover:[&_a]:underline
-            [&_ul]:list-disc [&_ul]:ml-6 [&_ul]:mb-4
-            [&_ol]:list-decimal [&_ol]:ml-6 [&_ol]:mb-4
-            [&_li]:mb-2
-            [&_code]:bg-[#1a1a1a] [&_code]:text-[var(--color-accent-1)] [&_code]:px-1.5 [&_code]:py-0.5 [&_code]:rounded [&_code]:text-sm
-            [&_pre]:bg-[#111] [&_pre]:p-4 [&_pre]:rounded [&_pre]:overflow-x-auto [&_pre]:mb-4 [&_pre]:border [&_pre]:border-[#222]
-            [&_blockquote]:border-l-2 [&_blockquote]:border-[var(--color-accent-1)]/40 [&_blockquote]:pl-5 [&_blockquote]:italic [&_blockquote]:text-[var(--color-text-secondary)]"
+          className="prose"
           style={{
-            fontFamily: "var(--font-spectral), Georgia, serif",
-            fontSize: "1.0625rem",
-            color: "#d4cdb8",
-            lineHeight: "1.85",
+            fontFamily: "var(--font-spectral), serif",
+            fontSize: "17px",
+            lineHeight: "32px",
+            color: "rgb(245,245,220)",
           }}
         >
           <ReactMarkdown
             components={{
               a: ({ href, children }) => (
-                <a href={href} target="_blank" rel="noopener noreferrer">
-                  {children}
-                </a>
+                <a href={href} target="_blank" rel="noopener noreferrer">{children}</a>
               ),
             }}
           >
             {essay.content}
           </ReactMarkdown>
         </article>
-      </div>
+
+        {/* Dashed divider */}
+        <div style={{ borderTop: "1px dashed rgba(245,245,220,0.10)", margin: "3.5rem 0 2.5rem" }} />
+
+        {/* Back link — centred */}
+        <div style={{ textAlign: "center", marginBottom: "2.5rem" }}>
+          <Link
+            href={backHref}
+            className="back-link"
+            style={{
+              fontFamily: "var(--font-mulish), Mulish, sans-serif",
+              fontSize: "0.65rem",
+              letterSpacing: "0.14em",
+              textTransform: "uppercase",
+               color: "rgb(245,245,220)",
+              textDecoration: "none",
+            }}
+          >
+            &larr; Back
+          </Link>
+        </div>
+
+        {/* Prev / Next */}
+        <nav className="flex justify-between items-start gap-6">
+          {prev ? (
+            <Link href={`/essays/${prev.slug}`} style={{ textDecoration: "none", maxWidth: "45%" }}>
+              <span style={{ display: "block", fontFamily: "var(--font-mulish), Mulish, sans-serif", fontSize: "0.58rem", letterSpacing: "0.14em", textTransform: "uppercase",  color: "rgb(245,245,220)", marginBottom: "0.5rem" }}>
+                &larr; Previous
+              </span>
+              <span className="nav-link" style={{ fontFamily: "var(--font-spectral), serif", fontWeight: 400, fontSize: "1rem", fontStyle: "italic",  color: "rgb(245,245,220)" }}>
+                {prev.frontmatter.title}
+              </span>
+            </Link>
+          ) : <span />}
+
+          {next ? (
+            <Link href={`/essays/${next.slug}`} style={{ textDecoration: "none", maxWidth: "45%", textAlign: "right" }}>
+              <span style={{ display: "block", fontFamily: "var(--font-mulish), Mulish, sans-serif", fontSize: "0.58rem", letterSpacing: "0.14em", textTransform: "uppercase",  color: "rgb(245,245,220)", marginBottom: "0.5rem" }}>
+                Next &rarr;
+              </span>
+              <span className="nav-link" style={{ fontFamily: "var(--font-spectral), serif", fontWeight: 400, fontSize: "1rem", fontStyle: "italic",  color: "rgb(245,245,220)" }}>
+                {next.frontmatter.title}
+              </span>
+            </Link>
+          ) : <span />}
+        </nav>
+      </main>
     </div>
   );
 }

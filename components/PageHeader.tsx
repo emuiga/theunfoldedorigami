@@ -5,10 +5,10 @@ import { usePathname } from "next/navigation";
 import { useState } from "react";
 
 const navLinks = [
-  { href: "/origami",   label: "Work"      },
+  { href: "/about",     label: "About Me"  },
+  { href: "/origami",   label: "Origami"   },
   { href: "/thoughts",  label: "Thoughts"  },
   { href: "/interests", label: "Interests" },
-  { href: "/about",     label: "About Me"  },
 ];
 
 export function PageHeader() {
@@ -43,7 +43,7 @@ export function PageHeader() {
               fontWeight: 400,
               fontSize: "1rem",
               letterSpacing: "0.08em",
-              color: "rgba(245,245,220,0.88)",
+               color: "rgb(245,245,220)",
               whiteSpace: "nowrap",
               textDecoration: "none",
             }}
@@ -61,7 +61,7 @@ export function PageHeader() {
                 key={href}
                 href={href}
                 style={{
-                  fontFamily: "var(--font-inter, sans-serif)",
+                  fontFamily: "var(--font-mulish), Mulish, sans-serif",
                   fontSize: "0.78rem",
                   letterSpacing: "0.07em",
                   color: isActive(href) ? "rgba(245,245,220,0.98)" : "rgba(245,245,220,0.60)",
@@ -144,7 +144,7 @@ export function PageHeader() {
                 style={{
                   display: "block",
                   padding: "12px 22px",
-                  fontFamily: "var(--font-inter, sans-serif)",
+                  fontFamily: "var(--font-mulish), Mulish, sans-serif",
                   fontSize: "0.88rem",
                   letterSpacing: "0.06em",
                   color: isActive(href) ? "rgba(245,245,220,0.98)" : "rgba(245,245,220,0.60)",

@@ -1,17 +1,39 @@
+import fs from "fs";
+import path from "path";
 import { getAllEssays } from "@/lib/essays";
 import { PageHeader } from "@/components/PageHeader";
-import { ThoughtsList } from "@/components/ThoughtsList";
+import { ArticleList } from "@/components/ArticleList";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
   title: "Thoughts",
-  description: "Writing by Steve Muiga — technical and otherwise.",
+  description: "Personal writing by Steve Muiga.",
 };
 
 export const revalidate = 60;
 
+function getOrigamiImages(): string[] {
+  const dir = path.join(process.cwd(), "public", "origami");
+  if (!fs.existsSync(dir)) return ["/paper.png"];
+  const files = fs.readdirSync(dir).filter((f) =>
+    /\.(png|jpg|jpeg|webp|svg)$/i.test(f)
+  );
+  if (files.length === 0) return ["/paper.png"];
+  return files.map((f) => `/origami/${f}`);
+}
+
 export default async function ThoughtsPage() {
-  const essays = await getAllEssays();
+  const allEssays = await getAllEssays();
+  const essays = allEssays.filter((e) => e.frontmatter.category !== "technical");
+  const images = getOrigamiImages();
+
+  const articles = essays.map((e, i) => ({
+    slug: e.slug,
+    title: e.frontmatter.title,
+    date: e.frontmatter.date,
+    excerpt: e.frontmatter.excerpt,
+    icon: images[i % images.length],
+  }));
 
   return (
     <div
@@ -23,28 +45,61 @@ export default async function ThoughtsPage() {
         backgroundAttachment: "fixed",
       }}
     >
-      <div className="absolute inset-0 z-0" style={{ background: "rgba(4,47,46,0.84)" }} />
+      <div className="absolute inset-0 z-0" style={{ background: "rgba(4,47,46,0.92)" }} />
       <style>{`:root { --page-bg: #042F2E; }`}</style>
       <PageHeader />
 
-      <div className="relative z-10 min-h-screen pt-16 pb-16">
+      <div className="relative z-10 pt-10 pb-32">
         <div className="max-w-6xl mx-auto px-6">
+          <div className="flex flex-col lg:flex-row gap-0 lg:gap-16 pt-8">
 
-          {/* Intro copy */}
-          <p
-            className="mb-14 max-w-xl italic leading-relaxed"
-            style={{
-              fontFamily: "var(--font-cormorant), Georgia, serif",
-              fontWeight: 300,
-              fontSize: "1.05rem",
-              color: "rgba(245,245,220,0.68)",
-            }}
-          >
-            Sometimes I write long-form about whatever I&apos;m currently building or thinking through.
-            Some of these may be a product of their time — and that&apos;s fine.
-          </p>
+            {/* ── Sidebar ── */}
+            <aside className="lg:sticky lg:top-24 lg:self-start lg:w-64 shrink-0 mb-12 lg:mb-0">
+              <h1
+                style={{
+                  fontFamily: "var(--font-cormorant), Georgia, serif",
+                  fontWeight: 300,
+                  fontStyle: "italic",
+                  fontSize: "clamp(2rem, 5vw, 2.8rem)",
+                  lineHeight: 1.05,
+                   color: "rgb(245,245,220)",
+                  marginBottom: "1.2rem",
+                }}
+              >
+                Thoughts
+              </h1>
+              <p
+                style={{
+                  fontFamily: "var(--font-mulish), Mulish, sans-serif",
+                  fontSize: "0.78rem",
+                  lineHeight: 1.85,
+                   color: "rgb(245,245,220)",
+                  marginBottom: "2rem",
+                }}
+              >
+                Personal writing — observations, things I&apos;m working through,
+                ideas that don&apos;t fit anywhere else. Some may be a product
+                of their time, and that&apos;s fine.
+              </p>
+              <div style={{ height: "1px", background: "rgba(138,191,152,0.12)", marginBottom: "1.8rem" }} />
+              <p
+                style={{
+                  fontFamily: "var(--font-mulish), Mulish, sans-serif",
+                  fontSize: "0.62rem",
+                  letterSpacing: "0.16em",
+                  textTransform: "uppercase",
+                   color: "rgb(245,245,220)",
+                }}
+              >
+                {articles.length} {articles.length === 1 ? "piece" : "pieces"}
+              </p>
+            </aside>
 
-          <ThoughtsList essays={essays} />
+            {/* ── Article list ── */}
+            <div className="flex-1 min-w-0">
+              <ArticleList articles={articles} />
+            </div>
+          </div>
         </div>
       </div>
     </div>
