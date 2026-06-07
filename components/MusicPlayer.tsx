@@ -32,8 +32,8 @@ export function MusicPlayer() {
 
   // Orange glow — brighter + faster when playing
   const glowColor = playing
-    ? "rgba(255,103,25,0.90)"
-    : "rgba(255,103,25,0.50)";
+    ? "rgba(232,108,61,0.90)"
+    : "rgba(232,108,61,0.50)";
   const spinDuration = playing ? "1.8s" : "3.2s";
 
   return (
@@ -108,10 +108,10 @@ export function MusicPlayer() {
             {/* Label */}
             <span
               style={{
-                fontFamily: "var(--font-inter, sans-serif)",
+                fontFamily: "var(--font-mulish), Mulish, sans-serif",
                 fontSize: "0.65rem",
                 letterSpacing: "0.08em",
-                color: playing ? "rgb(255,103,25)" : "rgba(227,237,237,0.70)",
+                color: playing ? "#E86C3D" : "rgba(227,237,237,0.70)",
                 transition: "color 0.2s",
                 whiteSpace: "nowrap",
               }}
@@ -125,12 +125,12 @@ export function MusicPlayer() {
                 width: "16px",
                 height: "16px",
                 borderRadius: "50%",
-                border: `1px solid ${playing ? "rgba(255,103,25,0.7)" : "rgba(227,237,237,0.25)"}`,
+                border: `1px solid ${playing ? "rgba(232,108,61,0.7)" : "rgba(227,237,237,0.25)"}`,
                 display: "flex",
                 alignItems: "center",
                 justifyContent: "center",
                 fontSize: "0.4rem",
-                color: playing ? "rgb(255,103,25)" : "rgba(227,237,237,0.55)",
+                color: playing ? "#E86C3D" : "rgba(227,237,237,0.55)",
                 transition: "all 0.2s",
                 flexShrink: 0,
               }}
