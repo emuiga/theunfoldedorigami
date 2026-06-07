@@ -33,11 +33,11 @@ function LifeInWeeks() {
         <div className="flex-1 h-px" style={{ background: "rgba(138,191,152,0.10)" }} />
         <span
           style={{
-            fontFamily: "var(--font-inter, sans-serif)",
+            fontFamily: "var(--font-mulish), Mulish, sans-serif",
             fontSize: "0.65rem",
             letterSpacing: "0.18em",
             textTransform: "uppercase",
-            color: "rgba(245,245,220,0.30)",
+             color: "rgb(245,245,220)",
           }}
         >
           Life in Weeks
@@ -57,11 +57,11 @@ function LifeInWeeks() {
           <div key={label}>
             <p
               style={{
-                fontFamily: "var(--font-inter, sans-serif)",
+                fontFamily: "var(--font-mulish), Mulish, sans-serif",
                 fontSize: "0.6rem",
                 letterSpacing: "0.14em",
                 textTransform: "uppercase",
-                color: "rgba(245,245,220,0.25)",
+                 color: "rgb(245,245,220)",
                 marginBottom: "2px",
               }}
             >
@@ -72,7 +72,7 @@ function LifeInWeeks() {
                 fontFamily: "var(--font-cormorant), Georgia, serif",
                 fontSize: "1.1rem",
                 fontWeight: 300,
-                color: "rgba(245,245,220,0.65)",
+                 color: "rgb(245,245,220)",
               }}
             >
               {value}
@@ -129,10 +129,10 @@ function LifeInWeeks() {
           <div
             className="flex flex-wrap items-center gap-x-5 gap-y-2 mt-5"
             style={{
-              fontFamily: "var(--font-inter, sans-serif)",
+              fontFamily: "var(--font-mulish), Mulish, sans-serif",
               fontSize: "0.6rem",
               letterSpacing: "0.10em",
-              color: "rgba(245,245,220,0.25)",
+               color: "rgb(245,245,220)",
               textTransform: "uppercase",
             }}
           >
@@ -152,10 +152,10 @@ function LifeInWeeks() {
         <div
           className="lg:sticky lg:top-24 shrink-0 lg:max-w-[260px]"
           style={{
-            fontFamily: "var(--font-inter, sans-serif)",
+            fontFamily: "var(--font-mulish), Mulish, sans-serif",
             fontSize: "0.82rem",
             lineHeight: 1.75,
-            color: "rgba(245,245,220,0.62)",
+             color: "rgb(245,245,220)",
           }}
         >
           <p style={{ marginBottom: "1.2rem" }}>
@@ -181,7 +181,7 @@ function LifeInWeeks() {
               fontSize: "0.68rem",
               letterSpacing: "0.10em",
               textTransform: "uppercase",
-              color: "rgba(245,245,220,0.30)",
+               color: "rgb(245,245,220)",
               textDecoration: "none",
               borderBottom: "1px solid rgba(245,245,220,0.15)",
               paddingBottom: "1px",
@@ -248,90 +248,63 @@ export default function AboutPage() {
               color: "var(--color-text-primary)",
             }}
           >
-            Creative developer and a professional amateur in the world of endurance sport<br />
+            Creative developer.<br />Amateur endurance athlete.
           </h1>
-          <p
-            className="text-sm italic"
-            style={{ color: "var(--color-text-secondary)" }}
-          >
-            Software engineer  · Amateur hybrid athlete
-          </p>
         </div>
 
         {/* ─── Divider ─── */}
         <div className="max-w-5xl mx-auto px-6">
           <div className="flex items-center gap-4">
-            {/* <span style={{ color: "rgba(196,147,90,0.7)", fontSize: "0.875rem" }}>＋</span> */}
             <div className="flex-1 h-px" style={{ background: "rgba(138,191,152,0.12)" }} />
-            {/* <span style={{ color: "rgba(196,147,90,0.7)", fontSize: "0.875rem" }}>＋</span> */}
           </div>
         </div>
 
         {/* ─── Bio ─── */}
-        <div className="max-w-5xl mx-auto px-6 py-10 sm:py-20">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-20">
-
-            <div
-              className="space-y-6 leading-relaxed"
-              style={{ color: "var(--color-text-primary)", fontSize: "1rem" }}
-            >
-              <p>
-                Hi, my name is Steve and I'm a software engineer by trade. I didn't grow up around computers. 
-                In fact, I built my first website a few years ago—a site for a local cafe that took me three 
-                days locked in my room following an HTML & CSS tutorial. I remember its centerpiece was a massive
-                <span style={{
-              fontFamily: "var(--font-spectral), Georgia, serif",
-              fontWeight: 5,
-              fontStyle: "italic",
-              fontSize: "clamp(1rem, 8vw, 1.5rem)",
-              color: "var(--color-text-primary)",
-            }}>"Let's meat"</span> headline that I thought was genius at the time. 
-                I haven't touched that site since but I have 
-                 created better and fun websites <i style={{
-              fontFamily: "var(--font-spectral), Georgia, serif",
-            }}>(like this one)</i> ever since. 
-              </p>
-              <p>
-                I used to run a lot. If it involves a start, an end and a humbling journey 
-                to get from one to the other then I’m probably passionate about it;  I cycle relatively long distances.
-                I can squat twice your weight. I love solo hikes. All this goes to say that
-                I have a questionable relationship with discomfort, which I've come to terms with. Invite me for a session!
-              </p>
-            </div>
-
-            <div
-              className="space-y-6 leading-relaxed"
-              style={{ color: "var(--color-text-primary)", fontSize: "1rem" }}
-            >
-              <p>
-                I&apos;m a Christian. My faith shapes how
-                I think about time, work, people, and what it means to do anything well. 
-              </p>
-              <p>
-                I have a playlist called <i style={{
-              fontFamily: "var(--font-spectral), Georgia, serif",
-            }}>Mimi ni Mhindie</i> because I listen to Indie. 
-                I enjoy playing Kenya @50, cracks me up to see the different perceptions people have of the items they're describing.
-              </p>
-              <p>Simply put: I am a guy in Kenya interested in creative stuff.
-                In late 2025, we tossed around the idea of starting a software company. Fast-forward and we are building 
-                products at <a
-                  href="https://www.origin.co.ke"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  style={{
-                    color: "rgba(138,191,152,0.65)",
-                    textDecoration: "none",
-                    borderBottom: "1px solid rgba(138,191,152,0.25)",
-                    paddingBottom: "1px",
-                    transition: "color 0.2s, border-color 0.2s",
-                  }}
-                >
-                  Origin HQ
-                </a> and learning a ton.
-              </p>
-              <p>One of my goals in 2026 is to simplify my defaults and build from first principles as I broaden my skillset.</p>
-            </div>
+        <div className="max-w-2xl mx-auto px-6 py-10 sm:py-20">
+          <div
+            className="space-y-6 leading-relaxed"
+            style={{ color: "var(--color-text-primary)", fontSize: "1rem", lineHeight: 1.85 }}
+          >
+            <p>
+              Hi, my name is Steve and I&apos;m a software engineer by trade. I didn&apos;t grow up around computers.
+              In fact, I built my first website a few years ago — a site for a local cafe that took me three
+              days locked in my room following an HTML &amp; CSS tutorial. Its centerpiece was a massive{" "}
+              <span style={{
+                fontFamily: "var(--font-spectral), Georgia, serif",
+                fontStyle: "italic",
+                fontSize: "clamp(1rem, 4vw, 1.3rem)",
+              }}>
+                &ldquo;Let&apos;s meat&rdquo;
+              </span>{" "}
+              headline I thought was genius at the time. I haven&apos;t touched that site since, but I&apos;ve built better things since.
+            </p>
+            <p>
+              If it involves a start, an end, and a humbling journey between the two, I&apos;m probably into it.
+              I run, cycle relatively long distances, squat more than you&apos;d expect, and love a solo hike.
+              I have a questionable relationship with discomfort. Invite me for a session.
+            </p>
+            <p>
+              In late 2025, we tossed around the idea of starting a software company. We&apos;re now building
+              products at{" "}
+              <a
+                href="https://www.origin.co.ke"
+                target="_blank"
+                rel="noopener noreferrer"
+                style={{
+                  color: "rgba(138,191,152,0.65)",
+                  textDecoration: "none",
+                  borderBottom: "1px solid rgba(138,191,152,0.25)",
+                  paddingBottom: "1px",
+                  transition: "color 0.2s, border-color 0.2s",
+                }}
+              >
+                Origin HQ
+              </a>{" "}
+              and learning a ton.
+            </p>
+            <p>
+              One goal for {new Date().getFullYear()}: simplify my defaults and build from first principles.
+            </p>
           </div>
         </div>
 
@@ -345,7 +318,7 @@ export default function AboutPage() {
             target="_blank"
             rel="noopener noreferrer"
             className="inline-block px-10 py-4 rounded-full font-medium transition-opacity hover:opacity-80"
-            style={{ background: "rgb(255, 103, 25)", color: "#fff" }}
+            style={{ background: "#E86C3D", color: "#fff" }}
           >
             Subscribe to the newsletter
           </a>

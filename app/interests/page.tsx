@@ -4,7 +4,7 @@ import type { Metadata } from "next";
 
 export const metadata: Metadata = {
   title: "Interests",
-  description: "Books I've read and quotes that have stayed with me.",
+  description: "Books I've read and bangers that have stayed with me.",
 };
 
 function BookCard({ book, imageRight }: { book: any; imageRight: boolean }) {
@@ -66,7 +66,7 @@ function BookCard({ book, imageRight }: { book: any; imageRight: boolean }) {
                 fontFamily: "var(--font-cormorant), Georgia, serif",
                 fontSize: "4rem",
                 fontWeight: 300,
-                color: "rgba(245,245,220,0.15)",
+                 color: "rgb(245,245,220)",
               }}
             >
               {book.title?.[0] ?? "?"}
@@ -101,7 +101,7 @@ function BookCard({ book, imageRight }: { book: any; imageRight: boolean }) {
       </h2>
       <p
         style={{
-          fontFamily: "var(--font-inter, sans-serif)",
+          fontFamily: "var(--font-mulish), Mulish, sans-serif",
           fontSize: "0.70rem",
           letterSpacing: "0.08em",
           color: "var(--color-text-secondary)",
@@ -118,7 +118,7 @@ function BookCard({ book, imageRight }: { book: any; imageRight: boolean }) {
             fontStyle: "italic",
             fontSize: "0.88rem",
             lineHeight: 1.8,
-            color: "rgba(245,245,220,0.52)",
+             color: "rgb(245,245,220)",
             maxWidth: "420px",
             marginTop: "4px",
           }}
@@ -169,7 +169,7 @@ export default async function InterestsPage() {
             In silence, it's best to listen to writers.
           </h1>
           <p className="text-sm italic" style={{ fontFamily: "var(--font-spectral), Georgia, serif", color: "var(--color-text-secondary)" }}>
-            {/* Books I&apos;ve read · Quotes &amp; verses that stuck */}
+            {/* Books I&apos;ve read · Bangers that stuck */}
             Making a list of books and words that have really stuck with me, changed my outlook, inspired me or just plain fascinated me.
           </p>
         </div>
@@ -185,11 +185,11 @@ export default async function InterestsPage() {
         <section className="mb-28">
           <p
             style={{
-              fontFamily: "var(--font-inter, sans-serif)",
+              fontFamily: "var(--font-mulish), Mulish, sans-serif",
               fontSize: "0.6rem",
               letterSpacing: "0.18em",
               textTransform: "uppercase",
-              color: "rgba(245,245,220,0.25)",
+               color: "rgb(245,245,220)",
               marginBottom: "0.5rem",
             }}
           >
@@ -203,7 +203,7 @@ export default async function InterestsPage() {
                 fontWeight: 300,
                 fontStyle: "italic",
                 fontSize: "1.15rem",
-                color: "rgba(245,245,220,0.30)",
+                 color: "rgb(245,245,220)",
                 marginTop: "2.5rem",
               }}
             >
@@ -223,15 +223,15 @@ export default async function InterestsPage() {
         <section>
           <p
             style={{
-              fontFamily: "var(--font-inter, sans-serif)",
+              fontFamily: "var(--font-mulish), Mulish, sans-serif",
               fontSize: "0.6rem",
               letterSpacing: "0.18em",
               textTransform: "uppercase",
-              color: "rgba(245,245,220,0.25)",
+               color: "rgb(245,245,220)",
               marginBottom: "2.5rem",
             }}
           >
-            Quotes &amp; Verses
+            Bangers
           </p>
 
           {quotes.length === 0 ? (
@@ -241,7 +241,7 @@ export default async function InterestsPage() {
                 fontWeight: 300,
                 fontStyle: "italic",
                 fontSize: "1.15rem",
-                color: "rgba(245,245,220,0.30)",
+                 color: "rgb(245,245,220)",
               }}
             >
               Words worth keeping, coming soon.
@@ -256,7 +256,7 @@ export default async function InterestsPage() {
                       fontStyle: "italic",
                       fontWeight: 300,
                       fontSize: "clamp(1.1rem, 2.5vw, 1.4rem)",
-                      color: "rgba(245,245,220,0.75)",
+                       color: "rgb(245,245,220)",
                       lineHeight: 1.6,
                       marginBottom: "0.75rem",
                     }}
@@ -265,7 +265,7 @@ export default async function InterestsPage() {
                   </p>
                   <p
                     style={{
-                      fontFamily: "var(--font-inter, sans-serif)",
+                      fontFamily: "var(--font-mulish), Mulish, sans-serif",
                       fontSize: "0.7rem",
                       letterSpacing: "0.10em",
                       color: "var(--color-text-secondary)",
