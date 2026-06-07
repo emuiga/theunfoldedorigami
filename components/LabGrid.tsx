@@ -184,14 +184,14 @@ const titleStyle: React.CSSProperties = {
 };
 
 const descStyle: React.CSSProperties = {
-  fontFamily: "var(--font-inter, sans-serif)",
+  fontFamily: "var(--font-mulish), Mulish, sans-serif",
   fontSize: "0.78rem",
   color: "var(--color-text-secondary)",
   lineHeight: 1.65,
 };
 
 const tagStyle: React.CSSProperties = {
-  fontFamily: "var(--font-inter, sans-serif)",
+  fontFamily: "var(--font-mulish), Mulish, sans-serif",
   fontSize: "0.6rem",
   letterSpacing: "0.1em",
   textTransform: "uppercase",

@@ -70,10 +70,10 @@ export function TypingCycler() {
     <span
       className="inline-flex items-center"
       style={{
-        fontFamily: "var(--font-inter, sans-serif)",
+        fontFamily: "var(--font-mulish), Mulish, sans-serif",
         fontSize: "0.82rem",
         letterSpacing: "0.05em",
-        color: "rgba(227,237,237,0.50)",
+         color: "rgb(245,245,220)",
         minHeight: "1.2em",
         minWidth: "1px",
       }}

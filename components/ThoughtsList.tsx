@@ -62,7 +62,7 @@ export function ThoughtsList({ essays }: { essays: Essay[] }) {
               textTransform: "uppercase",
               cursor: "pointer",
               transition: "all 0.18s",
-              fontFamily: "var(--font-inter, sans-serif)",
+              fontFamily: "var(--font-mulish), Mulish, sans-serif",
               fontWeight: active === tab ? 500 : 400,
             }}
           >
@@ -78,7 +78,7 @@ export function ThoughtsList({ essays }: { essays: Essay[] }) {
             style={{
               padding: "3rem 0",
               color: "rgba(245,245,220,0.55)",
-              fontFamily: "var(--font-inter, sans-serif)",
+              fontFamily: "var(--font-mulish), Mulish, sans-serif",
               fontSize: "0.9rem",
             }}
           >

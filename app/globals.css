@@ -1,11 +1,11 @@
 @import "tailwindcss";
 
 @theme inline {
-  --font-sans: var(--font-inter), system-ui, -apple-system, sans-serif;
+  --font-sans: var(--font-mulish), Mulish, system-ui, -apple-system, sans-serif;
   --font-serif: var(--font-spectral), Georgia, "Times New Roman", serif;
   /* Color scheme */
-  --color-text-primary:   rgb(227,237,237);
-  --color-text-secondary: rgba(227,237,237,0.58);
+  --color-text-primary:   rgb(245,245,220);
+  --color-text-secondary: rgb(245,245,220);
   --color-accent-1:       #8ABF98;   /* decorative borders / dividers only — not for text */
   --color-accent-2:       #C4935A;
   --color-button:         #2E6849;
@@ -33,11 +33,11 @@ html {
 }
 
 body {
-  font-family: var(--font-inter), system-ui, -apple-system, sans-serif;
+  font-family: var(--font-mulish), Mulish, system-ui, -apple-system, sans-serif;
   line-height: 1.7;
   letter-spacing: 0.01em;
   background: var(--page-bg);
-  color: var(--color-text-primary);
+  color: rgb(245,245,220);
   overflow-x: hidden;
 }
 
@@ -79,7 +79,7 @@ a:focus-visible {
   top: -40px;
   left: 0;
   background: var(--color-accent-1);
-  color: var(--color-text-primary);
+  color: rgb(245,245,220);
   padding: 8px 16px;
   text-decoration: none;
   z-index: 100;

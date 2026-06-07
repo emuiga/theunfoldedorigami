@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import Image from "next/image";
 
 const socialLinks = [
   { label: "Substack",  href: "https://stevemuiga.substack.com" },
@@ -37,13 +38,20 @@ export function Footer() {
 
         {/* Left — branding */}
         <div>
+          <Image
+            src="/origami.png"
+            alt=""
+            width={32}
+            height={32}
+            style={{ opacity: 0.30, marginBottom: "0.8rem" }}
+          />
           <p
             style={{
               fontFamily: "var(--font-cormorant), Georgia, serif",
               fontStyle: "italic",
               fontWeight: 300,
               fontSize: "clamp(2rem, 5vw, 3rem)",
-              color: "rgba(245,245,220,0.80)",
+               color: "rgb(245,245,220)",
               lineHeight: 1,
               marginBottom: "0.6rem",
             }}
@@ -52,10 +60,10 @@ export function Footer() {
           </p>
           <p
             style={{
-              fontFamily: "var(--font-inter, sans-serif)",
+              fontFamily: "var(--font-mulish), Mulish, sans-serif",
               fontSize: "0.72rem",
               letterSpacing: "0.12em",
-              color: "rgba(245,245,220,0.28)",
+               color: "rgb(245,245,220)",
               textTransform: "uppercase",
             }}
           >
@@ -75,10 +83,10 @@ export function Footer() {
                 target="_blank"
                 rel="noopener noreferrer"
                 style={{
-                  fontFamily: "var(--font-inter, sans-serif)",
+                  fontFamily: "var(--font-mulish), Mulish, sans-serif",
                   fontSize: "0.75rem",
                   letterSpacing: "0.06em",
-                  color: "rgba(245,245,220,0.58)",
+                   color: "rgb(245,245,220)",
                   textDecoration: "none",
                   transition: "color 0.2s",
                 }}
@@ -94,11 +102,11 @@ export function Footer() {
           <form onSubmit={handleSubscribe} style={{ width: "100%" }}>
             <p
               style={{
-                fontFamily: "var(--font-inter, sans-serif)",
+                fontFamily: "var(--font-mulish), Mulish, sans-serif",
                 fontSize: "0.62rem",
                 letterSpacing: "0.12em",
                 textTransform: "uppercase",
-                color: "rgba(245,245,220,0.45)",
+                 color: "rgb(245,245,220)",
                 marginBottom: "8px",
                 textAlign: "right",
               }}
@@ -118,22 +126,22 @@ export function Footer() {
                   border: "none",
                   outline: "none",
                   padding: "7px 16px",
-                  fontFamily: "var(--font-inter, sans-serif)",
+                  fontFamily: "var(--font-mulish), Mulish, sans-serif",
                   fontSize: "0.72rem",
                   letterSpacing: "0.04em",
-                  color: "rgba(245,245,220,0.65)",
+                   color: "rgb(245,245,220)",
                   minWidth: 0,
                 }}
               />
               <button
                 type="submit"
                 style={{
-                  background: sent ? "rgba(255,103,25,0.15)" : "rgb(255, 103, 25)",
+                  background: sent ? "rgba(255,103,25,0.15)" : "#E86C3D",
                   border: "none",
                   borderLeft: "1px solid rgba(245,245,220,0.10)",
                   padding: "7px 16px",
                   cursor: "pointer",
-                  fontFamily: "var(--font-inter, sans-serif)",
+                  fontFamily: "var(--font-mulish), Mulish, sans-serif",
                   fontSize: "0.68rem",
                   letterSpacing: "0.12em",
                   textTransform: "uppercase",
@@ -155,23 +163,37 @@ export function Footer() {
         <div className="flex justify-between items-center py-5">
           <span
             style={{
-              fontFamily: "var(--font-inter, sans-serif)",
+              fontFamily: "var(--font-mulish), Mulish, sans-serif",
               fontSize: "0.65rem",
               letterSpacing: "0.06em",
-              color: "rgba(245,245,220,0.18)",
+               color: "rgb(245,245,220)",
             }}
           >
-            © 2026 Steve Muiga
+            © {new Date().getFullYear()} Steve Muiga
           </span>
           <span
             style={{
               fontFamily: "var(--font-cormorant), Georgia, serif",
               fontStyle: "italic",
               fontSize: "0.8rem",
-              color: "rgba(245,245,220,0.14)",
+               color: "rgb(245,245,220)",
             }}
           >
             Nairobi, Kenya
+          </span>
+          <span
+            style={{
+              fontFamily: "var(--font-mulish), Mulish, sans-serif",
+              fontSize: "0.72rem",
+              letterSpacing: "0.06em",
+              color: "rgba(245,245,220,0.55)",
+              display: "flex",
+              alignItems: "center",
+              gap: "5px",
+            }}
+          >
+            <span style={{ color: "rgba(138,191,152,0.70)", letterSpacing: "-1px" }}>-o-</span>
+            {process.env.NEXT_PUBLIC_COMMIT_SHA}
           </span>
         </div>
       </div>
