@@ -65,13 +65,13 @@ function Para({ children, style }: { children: React.ReactNode; style?: React.CS
 
 const experiences = [
   {
-    heading: "Fellow from Open Hands Initiative",
-    duration: "2026 — Present",
-    href: "https://openhandsinitiative.org/programs/virtual.html",
-    body: "I am currently a fellow with the Open Hands Initiative, a global programme connecting young leaders across cultures for structured dialogue on pressing global issues. My cohort is working through a six-week curriculum on AI ethics, examining how artificial intelligence is reshaping society and what responsible development looks like when you have people from ten different countries in the same conversation. The programme has sharpened how I think about technology's role in society and introduced me to peers whose perspectives I would not have encountered otherwise.",
+    heading: "Software Developer @ KIFWA",
+    duration: "Dec 2024 — Present",
+    href: "https://www.linkedin.com/company/kifwa/",
+    body: "At KIFWA I am building a multi-tenant platform serving clearing agents, insurers, and freight service providers. The system handles bond purchases, renewals, and indemnity verification for over 2,000 clearing agents and integrates across multiple stakeholder types under one roof. The work involves optimised APIs and architecture decisions I have refined through time spent directly with the operations team understanding what they actually needed. Working on a system this operationally critical has sharpened how I approach reliability and scale. Part of the small team building the logistics engine for clearing and forwarding operations for the region.",
   },
   {
-    heading: "Co-founder & Full Stack Engineer from Origin HQ",
+    heading: "Co-founder & Full Stack Engineer @ Origin HQ",
     duration: "July 2025 — Present",
     href: "https://www.origin.co.ke",
     body: [
@@ -80,37 +80,37 @@ const experiences = [
     ],
   },
   {
-    heading: "Software Developer from KIFWA",
-    duration: "Dec 2024 — Present",
-    href: "https://www.linkedin.com/company/kifwa/",
-    body: "At KIFWA I am building a multi-tenant platform serving clearing agents, insurers, and freight service providers. The system handles bond purchases, renewals, and indemnity verification for over 2,000 clearing agents and integrates across multiple stakeholder types under one roof. The work involves optimised APIs and architecture decisions I have refined through time spent directly with the operations team understanding what they actually needed. Working on a system this operationally critical has sharpened how I approach reliability and scale.",
+    heading: "Fellow @ Open Hands Initiative",
+    duration: "2026 (ended Jul 2026)",
+    href: "https://openhandsinitiative.org/programs/virtual.html",
+    body: "I was a fellow with the Open Hands Initiative, a global programme connecting young leaders across cultures for structured dialogue on pressing global issues. My cohort worked through a six-week curriculum on AI ethics, examining how artificial intelligence is reshaping society and what responsible development looks like when you have people from ten different countries in the same conversation. The programme sharpened how I think about technology's role in society and introduced me to peers whose perspectives I would not have encountered otherwise.",
   },
   {
-    heading: "Frontend Developer from Pacaya",
+    heading: "Frontend Developer @ Pacaya",
     duration: "March 2025 — June 2025",
     href: "https://www.pacaya.com/",
     body: "Three months at Pacaya building and optimizing frontend features in a Next.js application serving over 3,000 monthly users. The work was component architecture, UI performance, and improving the overall reliability of the frontend experience. Good, focused engineering work.",
   },
   {
-    heading: "Software Developer Intern from Furaha Ventures",
+    heading: "Software Developer Intern @ Furaha Ventures",
     duration: "May 2023 — Oct 2024",
     href: null,
     body: "Built an IoT-connected application consuming hundreds of daily sensor events for real-time monitoring. I delivered responsive UI components that reduced dashboard navigation time by 30% and integrated backend APIs resulting in 20% fewer data syncing failures across IoT devices. Working with live sensor data gave me a strong appreciation for how much engineering precision matters when hardware and software have to agree in real time.",
   },
   {
-    heading: "Avionics Intern from The Nakuja Project — JICA & JKUAT",
+    heading: "Avionics Intern @ The Nakuja Project — JICA & JKUAT",
     duration: "Sep 2023 — Jan 2024",
     href: "https://nakujaproject.com/",
     body: "Contributed to the avionics systems of the N-3 rocket as part of the Nakuja Project, a collaboration between JICA and JKUAT. The work covered PCB fabrication, parachute ejection mechanism development, and iterative recovery subsystem testing. The rocket achieved successful subscale system tests. Contributing to a rocketry project as a software person taught me to think carefully about what failure means when the stakes are physical.",
   },
   {
-    heading: "Freelance Web Developer from Infiscope Enterprise",
+    heading: "Freelance Web Developer @ Infiscope Enterprise",
     duration: "Oct 2023 — Nov 2023",
     href: null,
     body: "Improved website performance and SEO for Infiscope, increasing organic traffic by 40% in one month and boosting on-site engagement by 25% through UI enhancements and better product presentation.",
   },
   {
-    heading: "ICT Attache from Nyandarua County Assembly",
+    heading: "ICT Attache @ Nyandarua County Assembly",
     duration: "May 2023 — Aug 2023",
     href: "https://nyandaruaassembly.go.ke/",
     body: "Supported an HR system used by over 100 staff members and built a library management system with book reservation, borrowing, and automated return-notification features that cut manual tracking work by 60%. I also maintained the live-streaming infrastructure for parliamentary proceedings, keeping session uptime at 99%. Working inside a government institution for the first time showed me how much operational reliability matters in environments where there is no fallback.",
@@ -118,6 +118,12 @@ const experiences = [
 ];
 
 const awards = [
+  {
+    title: "AI Ethics Certificate",
+    issuer: "Open Hands Initiative · 2026",
+    certHref: "/Open-Hands-AI-Ethics-Certificate.pdf",
+    body: "Awarded on completing a six-week fellowship curriculum on AI ethics with the Open Hands Initiative, examining how artificial intelligence is reshaping society alongside young leaders from ten different countries.",
+  },
   {
     title: "Best Overall — E4C AI Pilot Competition 2026",
     issuer: "Engineering for Change (Global · 33 teams)",
@@ -155,8 +161,28 @@ const skills = [
   "Angular", "Ionic", "Firebase", "Tailwind CSS", "Embedded Systems",
 ];
 
+const PROJECT_PRIORITY = [
+  "Bechfam LLC",
+  "Kenya Int'l Freights & Warehousing",
+  "Origin HQ",
+  "KayaSend",
+  "Roam Adventures",
+  "Primesoc",
+  "Movvapp",
+  "Joyful Bakery",
+  "Pacaya",
+  "Prime Voice Media",
+  "Mannabay Campaign",
+  "Nakuja Project Internship",
+  "Nyandarua County Assembly ICT Attachment",
+];
+
 export default async function Home() {
-  const allProjects = await getAllProjects();
+  const allProjects = (await getAllProjects()).sort((a, b) => {
+    const ai = PROJECT_PRIORITY.indexOf(a.title);
+    const bi = PROJECT_PRIORITY.indexOf(b.title);
+    return (ai === -1 ? Infinity : ai) - (bi === -1 ? Infinity : bi);
+  });
 
   return (
     <div className="relative" style={{ background: BG }}>
@@ -377,7 +403,7 @@ export default async function Home() {
         <SectionHeading>Selected Work</SectionHeading>
         {allProjects.length > 0 ? (
           <div className="space-y-5">
-            {allProjects.slice(0, 4).map((p) => (
+            {allProjects.map((p) => (
               <div key={p.title}>
                 {p.href ? (
                   <a href={p.href} target="_blank" rel="noopener noreferrer"
