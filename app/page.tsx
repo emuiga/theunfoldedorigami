@@ -424,6 +424,24 @@ export default async function Home() {
                   </p>
                 )}
                 <Para>{p.description}</Para>
+                {p.skills && p.skills.length > 0 && (
+                  <div className="flex flex-wrap gap-2" style={{ marginTop: "0.4rem" }}>
+                    {p.skills.map((s: string) => (
+                      <span key={s} style={{
+                        fontFamily: M,
+                        fontWeight: 400,
+                        fontSize: "11px",
+                        padding: "2px 10px",
+                        background: "rgba(245,245,220,0.06)",
+                        color: WHITE,
+                        borderRadius: "9999px",
+                        border: "1px solid rgba(245,245,220,0.12)",
+                      }}>
+                        {s}
+                      </span>
+                    ))}
+                  </div>
+                )}
               </div>
             ))}
           </div>

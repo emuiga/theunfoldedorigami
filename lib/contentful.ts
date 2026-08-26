@@ -131,6 +131,7 @@ export async function getAllProjects(): Promise<any[]> {
         href:        fields.link || null,
         thumbnail:   thumbnailUrl,
         year:        fields.year ? new Date(fields.year).getFullYear().toString() : "",
+        skills:      Array.isArray(fields.skills) ? fields.skills : [],
       };
     });
   } catch (error) {
