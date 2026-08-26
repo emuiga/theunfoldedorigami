@@ -10,9 +10,10 @@ const WHITE = "rgb(245,245,220)";
 
 const M = "var(--font-mulish), Mulish, sans-serif";
 
-function SectionHeading({ children }: { children: React.ReactNode }) {
+function SectionHeading({ children, id }: { children: React.ReactNode; id?: string }) {
   return (
     <h2
+      id={id}
       style={{
         fontFamily: M,
         fontWeight: 700,
@@ -21,6 +22,7 @@ function SectionHeading({ children }: { children: React.ReactNode }) {
         color: ORANGE,
         marginBottom: "1.2rem",
         marginTop: "2.4rem",
+        scrollMarginTop: "1.5rem",
       }}
     >
       {children}
@@ -320,7 +322,10 @@ export default async function Home() {
         <EntryHeading>BSc. Mathematics &amp; Computer Science</EntryHeading>
         <Para>Jomo Kenyatta University of Agriculture &amp; Technology (JKUAT)</Para>
         <Para style={{ color: "rgba(245,245,220,0.55)", fontSize: "13px" }}>
-          Additional coursework and credentials listed under Awards &amp; Certificates.
+          Additional coursework and credentials listed under{" "}
+          <a href="#awards" style={{ color: "rgba(245,245,220,0.75)", textDecoration: "underline", textDecorationColor: "rgba(245,245,220,0.25)", textUnderlineOffset: "3px" }}>
+            Awards &amp; Certificates
+          </a>.
         </Para>
 
         {/* ── Job Experience ── */}
@@ -458,7 +463,7 @@ export default async function Home() {
         )}
 
         {/* ── Awards & Certificates ── */}
-        <SectionHeading>Awards &amp; Certificates</SectionHeading>
+        <SectionHeading id="awards">Awards &amp; Certificates</SectionHeading>
         <div>
           {awards.map((a) => (
             <div key={a.title} className="award-block">
