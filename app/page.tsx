@@ -319,6 +319,9 @@ export default async function Home() {
         <SectionHeading>Education</SectionHeading>
         <EntryHeading>BSc. Mathematics &amp; Computer Science</EntryHeading>
         <Para>Jomo Kenyatta University of Agriculture &amp; Technology (JKUAT)</Para>
+        <Para style={{ color: "rgba(245,245,220,0.55)", fontSize: "13px" }}>
+          Additional coursework and credentials listed under Awards &amp; Certificates.
+        </Para>
 
         {/* ── Job Experience ── */}
         <SectionHeading>Job Experience</SectionHeading>
