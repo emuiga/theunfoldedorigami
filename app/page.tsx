@@ -315,6 +315,11 @@ export default async function Home() {
           In life, I want to keep building, keep exploring, and keep doing things that scare me a little.
         </Para>
 
+        {/* ── Education ── */}
+        <SectionHeading>Education</SectionHeading>
+        <EntryHeading>BSc. Mathematics &amp; Computer Science</EntryHeading>
+        <Para>Jomo Kenyatta University of Agriculture &amp; Technology (JKUAT)</Para>
+
         {/* ── Job Experience ── */}
         <SectionHeading>Job Experience</SectionHeading>
         <div>
@@ -448,11 +453,6 @@ export default async function Home() {
         ) : (
           <Para>Projects coming soon.</Para>
         )}
-
-        {/* ── Education ── */}
-        <SectionHeading>Education</SectionHeading>
-        <EntryHeading>BSc. Mathematics &amp; Computer Science</EntryHeading>
-        <Para>Jomo Kenyatta University of Agriculture &amp; Technology (JKUAT)</Para>
 
         {/* ── Awards & Certificates ── */}
         <SectionHeading>Awards &amp; Certificates</SectionHeading>
